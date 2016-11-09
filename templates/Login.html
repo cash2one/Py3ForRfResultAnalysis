@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>测试分析管理系统</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <link rel="stylesheet" href="/static/css/login.css" />
+    <link rel="icon" href="/static/image/favicon.ico" type="image/x-icon" />
+    <script type="text/javascript" src="/static/bootstrap/js/jquery.min.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js" type="text/javascript"></script>
+
+    <![endif]-->
+    <!--[if lte IE 8]>
+    <noscript>
+        <style>.html5-wrappers{display:none!important;}</style>
+        <div class="ie-noscript-warning">您的浏览器禁用了脚本，请<a href="">查看这里</a>来启用脚本!或者<a href="/?noscript=1">继续访问</a>.
+        </div>
+    </noscript>
+    <![endif]-->
+
+
+</head>
+<body id="cas" >
+
+<div id="container">
+
+    <div id="content">
+
+<div id="bodywrap">
+    <div class="wrap">
+        <div class="container f-cw f-cf">
+            <div class="f-fr">
+                <span class="ico-tel u-tt u-tt-md">010-60845500</span>
+            </div>
+            <div class="u-tt u-tt-lg logo">测试分析管理系统</div>
+        </div>
+    </div>
+    <div class="header f-pr" id="header">
+        <div class="container f-cw f-cf">
+            <div class="f-fr login">
+                <div class="login-wrap">
+                    <form id="fm1" class="sub-form" action="/login/" method="post">
+                        {% csrf_token %}
+                        <div class="login-content">
+                            <div class="login-group">
+                                  <h2 class="u-tt u-tt-md">请输入用户名</h2>
+                                  <input id="username" name="username" tabindex="1" class="u-inpt u-inpt-xs" type="text" accesskey="n" value="" autocomplete="off"/>
+                            </div>
+                            <div class="login-group">
+                                <h2 class="u-tt u-tt-md">请输入密码</h2>
+                                <input id="password" name="password" class="u-inpt u-inpt-xs" tabindex="2" accesskey="p" type="password" value="" size="25" autocomplete="off"/>
+                            </div>
+                            <div class="login-group">
+                                <span class="check-item">
+                                <label for="rememberMe">
+                                    <input id="rememberMe" name="rememberMe" type="checkbox" tabindex="3"  class="checkbox"/>
+                                    <span class="checkbox-txt">记住帐号密码</span>
+                                </label>
+                                </span>
+                            </div>
+                            <div class="login-group">
+                            <p style="color:red">{{error}}</p> <br>
+                            </div>
+                            <div class="login-group">
+                                <input type="hidden" name="lt" value="LT-3021-W0GHq7a5Q9baUbNbJf6vjYivmOMDkr-cas01.example.org"/>
+                                <input type="hidden" name="execution" value="e4s1"/>
+                                <input type="hidden" name="_eventId" value="submit"/>
+                                <button name="submit" accesskey="l" tabindex="4" type="submit" class="btn btn-black"
+                                >登录</button>
+                                    
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container"  id="wrapper_body">
+        <h2 class="u-tt u-tt-xl f-fwb f-tc t-title">我们的优势</h2>
+        <div class="f-cf">
+            <div class="f-fr t-body">
+                <div class="t-wrap">
+                    <div class="ico ico-list">&nbsp;</div>
+                    <p class="u-tt u-tt-md f-tc f-fwb">报告自动生成</p>
+                    <p class="u-tt f-tc">automation</p>
+                    <hr/>
+                    <p class="u-tt u-tt-md content">
+                        通过报告生成系统，估价师不仅可自动提取现场勘察信息，还可自由选择并提取案例信息至报告，并且通过数据一次录入、自动排版照片等功能来提高估价工作的效率，脱离原始的报告WORD或者计算表复制等带来的报告问题，实现报告电子化生成。</p>
+                </div>
+            </div>
+            <div class="t-body">
+                <div class="t-wrap">
+                    <div class="ico ico-line">&nbsp;</div>
+                    <p class="u-tt u-tt-md f-tc f-fwb">电子化数据外勘</p>
+                    <p class="u-tt f-tc">Electronic</p>
+                    <hr/>
+                    <p class="u-tt u-tt-md content">
+                        只需一部手机或者PAD等移动设备，随时随地可采集数据。不仅可以丰富数据，同时也可对报告进行支撑。可以实时数据传输，缩短资料回传公司的距离，提高出报告效率。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="u-tt u-tt-xl f-fwb f-tc t-title">我们服务的用户</h2>
+        <div class="imglist">
+            <span class="rd first">&nbsp;</span>
+            <span class="ll">&nbsp;</span>
+            <span class="sxzy">&nbsp;</span>
+            <span class="zy">&nbsp;</span>
+        </div>
+    </div>
+    <div class="wrap" id="footer">
+        <div class="container">
+            <div class="u-tt u-tt-md f-tc footer">
+                北京云房数据技术有限责任公司版权所有&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;京ICP备 13050679号-2
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(function(){
+        init();
+        $(window).resize(function(){
+            init();
+        })
+
+    });
+
+    function init(){
+        var _clientHeight = $(window).height();
+        var _bodyHeight = $("#bodywrap").height();
+        var str = (_clientHeight-(_bodyHeight))/10 ;
+        var _height =5* str;
+        var _$martop = 0
+        if(_bodyHeight< _clientHeight){
+            $("#wrapper_body>h2").after('<div class="wred" style="height:'+str+'px"></div>')
+            $("#wrapper_body>h2").before('<div class="wred" style="height:'+str+'px"></div>');
+            $(".imglist").after('<div class="wred" style="height:'+str+'px"></div>')
+            $(".header").height(_height+216);
+            _$martop = ($(".header").height()-$(".login-wrap").height())/2;
+        }else{
+            $("#wrapper_body>h2").next(".wred").remove();
+            $("#wrapper_body>h2").prev(".wred").remove();
+            $(".imglist").prev(".wred").remove();
+            $(".header").height(216);
+            _$martop =0;
+        }
+        $(".login").css({"marginTop":_$martop});
+    }
+</script>
+
+
+</div> <!-- END #content -->
+
+<footer>
+
+</footer>
+
+</div> <!-- END #container -->
+
+<script type="text/javascript" src="/static/bootstrap/js/jquery-ui.min.js"></script>
+
+
+<script type="text/javascript" src="/static/bootstrap/js/ba-debug.min.js"></script>
+
+
+<script type="text/javascript" src="/static/bootstrap/js/cas.js"></script>
+<!--[if lt IE 9]>
+<script src="js/PIE.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+(function($){
+$.pie = function(name, v){
+// å¦ææ²¡æå è½½ PIE åç´æ¥ç»æ­¢
+if (! PIE){
+
+return false;}
+// æ¯å¦ jQuery å¯¹è±¡æèéæ©å¨åç§°
+var obj = typeof name == 'object' ? name : $(name);
+// æå®è¿è¡æä»¶ç IE æµè§å¨çæ¬
+var version = 9;
+// æªæå®åé»è®¤ä½¿ç¨ ie10 ä»¥ä¸å¨å¼å®¹æ¨¡å¼
+if (typeof v != 'number' && v < 9) {
+version = v;
+}
+// å¯å¯¹æå®çå¤ä¸ª jQuery å¯¹è±¡è¿è¡æ ·å¼å¼å®¹
+if (!$.support.leadingWhitespace) {
+
+obj.each(function(){
+PIE.attach(this);
+});
+
+}
+}
+})(jQuery);
+
+$(function(){
+var objs = $('.background-rgba-255, .box' );
+$.pie(objs,'test');
+});
+</script>
+
+<![endif]-->
+</body>
+</html>
+
+

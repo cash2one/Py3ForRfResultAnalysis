@@ -1,0 +1,102 @@
+
+{% extends "base.html" %}
+ {% block header %}
+		<script type="text/javascript" src="/static/bootstrap/js/jquery-1.8.3.min.js"></script>
+		<style type="text/css">
+${demo.css}
+		</style>
+		<script type="text/javascript">
+$(function () {
+    $('#container').highcharts({
+        data: {
+            table: 'datatable'
+        },
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '测试报告分析图'
+        },
+        yAxis: {
+            allowDecimals: false,
+            title: {
+                text: 'Units'
+            }
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.series.name + '</b><br/>' +
+                    this.point.y + ' ' + this.point.name.toLowerCase();
+            }
+        }
+    });
+});
+		</script>
+{% endblock %}
+{% block content %}
+    {#   <!-- 导航栏 -->#}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/index/">软件测试部门结果分析系统</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li ><a href="/index/">报告列表</a></li>
+            <li class="active"><a href="/analysis/">图标分析</a></li>
+            <li><a href="/TestTools/">测试工具</a> </li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+           <li><a href="#">{{user}}</a></li>
+           <li><a href="http://v3.bootcss.com/examples/dashboard/#">Settings</a></li>
+            <li><a href="http://v3.bootcss.com/examples/dashboard/#">Profile</a></li>
+            <li><a href="http://v3.bootcss.com/examples/dashboard/#">Help</a></li>
+            <li><a href="/logout/">退出</a></li>
+         </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+   <!--发布会表单-->
+      <div class="page-header">
+        <div id="navbar" class="navbar-collapse collapse">
+          <form class="navbar-form" method="get" action="/sreach_name/result/">
+            <div class="form-group">
+              <input name="name" type="text" placeholder="事务名称" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">搜索</button>
+          </form>
+        </div><!--/.navbar-collapse -->
+      </div>
+    {% block container%}
+
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<table id="datatable">
+    <thead>
+        <tr>
+{#            <th></th>#}
+{#            <th>标题</th>#}
+            <th></th>
+            <th>PEP自动化测试结果</th>
+        </tr>
+    </thead>
+    <tbody>
+     {% for event in result_data %}
+        <tr>
+            <th>{{ event.started_at }}</th>
+            <td>{{ event.hash }}</td>
+        </tr>
+     {% endfor %}
+
+    </tbody>
+</table>
+<script src="/static/js/highcharts.js"></script>
+<script src="/static/js/data.js"></script>
+<script src="/static/js/exporting.js"></script>
+{% endblock %}
+{% endblock %}
