@@ -13,8 +13,9 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="/index/">报告列表</a></li>
             <li><a href="/analysis/columnar_analysic/">图标分析</a></li>
-            <li><a href="/TestTools/">测试工具</a> </li>
+            <li><a href="/database/connection/">数据库连接工具</a> </li>
           </ul>
+
 
           <ul class="nav navbar-nav navbar-right">
            <li><a href="#">{{user}}</a></li>
@@ -22,7 +23,7 @@
             <li><a href="http://v3.bootcss.com/examples/dashboard/#">Profile</a></li>
             <li><a href="http://v3.bootcss.com/examples/dashboard/#">Help</a></li>
             <li><a href="/logout/">退出</a></li>
-         </ul>
+           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
           </form>
@@ -38,6 +39,7 @@
           <form class="navbar-form" method="get" action="/sreach_name/">
             <div class="form-group">
               <input name="name" type="text" placeholder="事务名称" class="form-control">
+              <input name="casesname" type="text" placeholder="用例名称" class="form-control">
             </div>
             <button type="submit" class="btn btn-success">搜索</button>
           </form>
@@ -50,8 +52,9 @@
             <thead>
               <tr>
                 <th>id</th>
-                <th>测试时间</th>
+                 <th>用例名称</th>
                 <th>事务名称</th>
+                <th>测试时间</th>
                 <th>运行次数</th>
                 <th>平均事务时间</th>
                 <th>最大值</th>
@@ -67,11 +70,12 @@
                 <tr>
                   <td class="id_name" >{{ event.id }}</td>
                   <td>{{ event.source_file }}</td>
+                  <td>{{ event.source_file }}</td>
                   <td>{{ event.started_at }}</td>
                   <td>{{ event.finished_at }}</td>
                   <td>{{ event.hash }}</td>
-                    <td>{{ event.imported_at }}</td>
-                     <td>{{ event.imported_at }}</td>
+                  <td>{{ event.imported_at }}</td>
+                  <td>{{ event.imported_at }}</td>
                   <td><a href="/del_data/{{ event.id }}/d">删除</a></td>
                 </tr>
              {% endfor %}

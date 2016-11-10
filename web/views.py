@@ -68,8 +68,13 @@ def logout(request):
 def sreach_name(request):
     username = request.session.get('username', '')
     sreach_name = request.GET.get("name", "")
+    sreach_casesname = request.GET.get("casesname", "")
     sreach_name_bytes = sreach_name.encode(encoding="utf-8")
-    event_list = result_test_runss.objects.filter(source_file__contains=sreach_name_bytes)
+    sreach_casesname_bytes = sreach_casesname.encode(encoding="utf-8")
+
+    print(sreach_name_bytes, sreach_casesname_bytes)
+    event_list = result_test_runss.objects.filter(source_file__contains=sreach_name_bytes).filter(id__contains = sreach_casesname)
+    # started_at__contains = sreach_casesname.encode(encoding="utf-8")
     return render(request, "Index.html", {"user": username, "events": event_list})
 
 def del_data(request,aid):
@@ -87,9 +92,23 @@ def columnar_analysic(request):
 def sreach_name_result(request):
     username = request.session.get('username', '')
     sreach_name = request.GET.get("name", "")
+    sreach_casesname = request.GET.get("casesname","")
+
     sreach_name_bytes = sreach_name.encode(encoding="utf-8")
-    result_data = result_test_runss.objects.filter(source_file__contains=sreach_name_bytes)
+    sreach_casesname_bytes = sreach_casesname.encode(encoding="utf-8")
+    print(sreach_name_bytes)
+    result_data = result_test_runss.objects.filter(source_file__contains=sreach_name_bytes).filter(id__contains = sreach_casesname)
+    # print(result_data,)
+    # if isinstance(result_data):
+    #     result_data = result_data
+    # else:
+    #     result_data = result_test_runss.objects.filter(started_at__day=sreach_name_bytes)
+    # result_data1 = result_test_runss.objects.filter(started_at__day=sreach_name_bytes)
+    print(result_data)
     return render(request, "columnar_analysic.html", {"user": username, 'result_data':result_data})
+
+def databasconn(request):
+    return render(request,'database_connection.html')
 
 
 def analysis(request):

@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^analysis/$',views.simple),
     url(r'^analysis/columnar_analysic/$', views.columnar_analysic),
     url(r'^sreach_name/result/$', views.sreach_name_result),
+    url(r'^database/connection/$',views.databasconn),
     url(r'^TestTools/$',views.show_result),
 
 
