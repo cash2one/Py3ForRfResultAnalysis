@@ -12,7 +12,7 @@ from matplotlib.dates import DateFormatter
 from matplotlib.figure import Figure
 
 from web.models import *
-from web.models import result_test_runs
+from web.models import result_test_runss
 
 
 # Create your views here.
@@ -44,7 +44,7 @@ def login_action(request):
 
 
 def index(request):
-    result_list = result_test_runs.objects.all()
+    result_list = result_test_runss.objects.all()
     username = request.session.get('username', '')
 
     paginator = Paginator(result_list, 10)
@@ -69,18 +69,18 @@ def sreach_name(request):
     username = request.session.get('username', '')
     sreach_name = request.GET.get("name", "")
     sreach_name_bytes = sreach_name.encode(encoding="utf-8")
-    event_list = result_test_runs.objects.filter(source_file__contains=sreach_name_bytes)
+    event_list = result_test_runss.objects.filter(source_file__contains=sreach_name_bytes)
     return render(request, "Index.html", {"user": username, "events": event_list})
 
 def del_data(request,aid):
     # print('article_id %s' % aid)
-    result_data = result_test_runs.objects.get(id = aid)
+    result_data = result_test_runss.objects.get(id = aid)
     result_data.delete()
     return HttpResponseRedirect('/index/')
 
 def columnar_analysic(request):
 
-    result_data = result_test_runs.objects.all()
+    result_data = result_test_runss.objects.all()
 
     return render(request,'columnar_analysic.html',{'result_data':result_data})
 
@@ -88,7 +88,7 @@ def sreach_name_result(request):
     username = request.session.get('username', '')
     sreach_name = request.GET.get("name", "")
     sreach_name_bytes = sreach_name.encode(encoding="utf-8")
-    result_data = result_test_runs.objects.filter(source_file__contains=sreach_name_bytes)
+    result_data = result_test_runss.objects.filter(source_file__contains=sreach_name_bytes)
     return render(request, "columnar_analysic.html", {"user": username, 'result_data':result_data})
 
 

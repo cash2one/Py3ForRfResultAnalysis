@@ -11,4 +11,10 @@ class ResultAdmin(admin.ModelAdmin):
     search_fields = ['source_file']    # 搜索功能
     list_filter = ['source_file']    # 过滤器
 
-admin.site.register(result_test_runs, ResultAdmin)
+class ResultStatueAdmin(admin.ModelAdmin):
+    list_display = ['id','test_run_id','name','elapsed','failed','passed']
+    search_fields = ['test_run_id']
+    list_filter = ['test_run_id']
+
+admin.site.register(result_test_run_status,ResultStatueAdmin)
+admin.site.register(result_test_runss, ResultAdmin)

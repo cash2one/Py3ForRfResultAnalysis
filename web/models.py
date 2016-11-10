@@ -150,7 +150,7 @@ class result_test_run_status(models.Model):
     def __unicode__(self):
         return self.name,self.failed,self.passed
 
-class result_test_runs(models.Model):
+class result_test_runss(models.Model):
     id = models.IntegerField(default=11, primary_key=True)
     source_file = models.TextField()
     started_at = models.DateTimeField(auto_now_add=True)
