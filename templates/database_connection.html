@@ -30,5 +30,20 @@
       </div>
     </nav>
 {% block container%}
+      <div class="page-header">
+        <div id="navbar" class="navbar-collapse collapse">
+          <form class="navbar-form" method="get" action="/sreach_name/result/">
+            <div class="form-group">
+              <input name="name" type="text" placeholder="连接用户名" class="form-control">
+              <input name="IP_Address" type="text" placeholder="主机名或IP地址" class="form-control">
+              <input name="Port" type="text" placeholder="端口号" class="form-control">
+              <input name="username" type="text" placeholder="用户名" class="form-control">
+              <input name="password" type="text" placeholder="密码" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">连接测试</button>
+           <button type="submit" class="btn label-primary">新增</button>
+          </form>
+        </div><!--/.navbar-collapse -->
+      </div>
 {% endblock %}
 {% endblock %}
