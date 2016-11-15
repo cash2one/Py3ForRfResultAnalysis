@@ -32,7 +32,7 @@
 {% block container%}
       <div class="page-header">
         <div id="navbar" class="navbar-collapse collapse">
-          <form class="navbar-form" method="get" action="/sreach_name/result/">
+          <form class="navbar-form" method="get" action="/database/connection/">
             <div class="form-group">
               <input name="name" type="text" placeholder="连接用户名" class="form-control">
               <input name="IP_Address" type="text" placeholder="主机名或IP地址" class="form-control">
@@ -44,6 +44,7 @@
            <button type="submit" class="btn label-primary">新增</button>
           </form>
         </div><!--/.navbar-collapse -->
+      {{ row_1 }}
       </div>
 {% endblock %}
 {% endblock %}

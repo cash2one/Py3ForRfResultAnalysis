@@ -1,5 +1,6 @@
 import datetime
 import random
+import pymysql
 
 import django
 import matplotlib.pyplot as plt
@@ -14,6 +15,7 @@ from matplotlib.figure import Figure
 from web.models import *
 from web.models import result_test_runss
 from django.db.models import Q
+from web.operater.databaseoperator import databaseoperator
 
 
 # Create your views here.
@@ -100,7 +102,11 @@ def sreach_name_result(request):
     # sreach_casesname_bytes = sreach_casesname.encode(encoding="utf-8")
     # print(sreach_name,sreach_casesname)
     # result_data = result_test_runss.objects.filter(source_file__contains=sreach_name_bytes).filter(id__contains = sreach_casesname)
-    result_data = result_test_runss.objects.filter(Q(source_file__contains=sreach_name_bytes)|(Q(started_at__gte=sreach_name)))
+    # result_data = result_test_runss.objects.filter( Q(finished_at__lte=sreach_casesname)and Q(started_at__gte=sreach_name) )
+    result_data = result_test_runss.objects.filter(Q(source_file__contains=sreach_name_bytes) | Q(id__contains=sreach_name_bytes) | Q(started_at__startswith=sreach_name))
+
+
+    # result_data = result_test_runss.objects.filter(Q(source_file__contains=sreach_name_bytes)|Q(started_at__gte=sreach_name))
 
 
     # print(result_data,)
@@ -112,8 +118,19 @@ def sreach_name_result(request):
     print(result_data)
     return render(request, "columnar_analysic.html", {"user": username, 'result_data':result_data})
 
+def databascon(request):
+    return render(request, 'database_connection.html')
+
 def databasconn(request):
-    return render(request,'database_connection.html')
+    try:
+        connn =databaseoperator(request).conn()
+        connn.execute("select * from web_result_test_runss")
+        row_1 = connn.fetchone()
+        return render(request, 'database_connection.html', {'row_1': row_1})
+    except Exception as e:
+        print(e)
+        return render(request, 'database_connection.html')
+
 
 
 def analysis(request):
