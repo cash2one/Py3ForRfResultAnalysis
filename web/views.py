@@ -13,6 +13,7 @@ from matplotlib.figure import Figure
 
 from web.models import *
 from web.models import result_test_runss
+from django.db.models import Q
 
 
 # Create your views here.
@@ -68,12 +69,13 @@ def logout(request):
 def sreach_name(request):
     username = request.session.get('username', '')
     sreach_name = request.GET.get("name", "")
-    sreach_casesname = request.GET.get("casesname", "")
+    # sreach_casesname = request.GET.get("casesname", "")
     sreach_name_bytes = sreach_name.encode(encoding="utf-8")
-    sreach_casesname_bytes = sreach_casesname.encode(encoding="utf-8")
+    # sreach_casesname_bytes = sreach_casesname.encode(encoding="utf-8")
 
-    print(sreach_name_bytes, sreach_casesname_bytes)
-    event_list = result_test_runss.objects.filter(source_file__contains=sreach_name_bytes).filter(id__contains = sreach_casesname)
+    print(sreach_name_bytes)
+    # event_list = result_test_runss.objects.filter(source_file__contains=sreach_name_bytes).filter(id__contains = sreach_casesname)
+    event_list = result_test_runss.objects.filter(Q(source_file__contains=sreach_name_bytes)|Q(id__contains = sreach_name_bytes)|Q(started_at__startswith=sreach_name))
     # started_at__contains = sreach_casesname.encode(encoding="utf-8")
     return render(request, "Index.html", {"user": username, "events": event_list})
 
@@ -92,12 +94,15 @@ def columnar_analysic(request):
 def sreach_name_result(request):
     username = request.session.get('username', '')
     sreach_name = request.GET.get("name", "")
-    sreach_casesname = request.GET.get("casesname","")
+    # sreach_casesname = request.GET.get("casesname","")
 
     sreach_name_bytes = sreach_name.encode(encoding="utf-8")
-    sreach_casesname_bytes = sreach_casesname.encode(encoding="utf-8")
-    print(sreach_name_bytes)
-    result_data = result_test_runss.objects.filter(source_file__contains=sreach_name_bytes).filter(id__contains = sreach_casesname)
+    # sreach_casesname_bytes = sreach_casesname.encode(encoding="utf-8")
+    # print(sreach_name,sreach_casesname)
+    # result_data = result_test_runss.objects.filter(source_file__contains=sreach_name_bytes).filter(id__contains = sreach_casesname)
+    result_data = result_test_runss.objects.filter(Q(source_file__contains=sreach_name_bytes)|(Q(started_at__gte=sreach_name)))
+
+
     # print(result_data,)
     # if isinstance(result_data):
     #     result_data = result_data
