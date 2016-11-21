@@ -182,6 +182,14 @@ class result_tests(models.Model):
     def __unicode__(self):
         return self.name
 
+class create_data(models.Model):
+    name = models.CharField(max_length=255)
+    IP_Address = models.TextField()
+    Port = models.IntegerField(default=11)
+    username = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
+
+
 class Result(models.Model):
         """Question result info."""
         t_id = models.IntegerField(u'题号')
