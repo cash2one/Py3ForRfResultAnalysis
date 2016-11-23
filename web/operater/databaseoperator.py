@@ -13,13 +13,19 @@ class databaseoperator(object):
         # try:
             if self.username != ''and self.Port!='' and self.username!='':
                 conn = pymysql.connect(host = self.IP_Address, port = self.Port, user = self.username, passwd = self.password, db = self.name )
-
                 cursor = conn.cursor()
                 return cursor
             else:
                 print('账号或端口或用户名称不能为空')
         # except Exception as e:
         #     print("Can't connect to MySQL server on %s"%self.name)
+
+    def select(self,parameter):
+        self.conn().execute(parameter)
+        print('111')
+        # row_1 = self.conn().fetchone()
+        # return row_1
+
 
 
 

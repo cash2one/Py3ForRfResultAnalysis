@@ -3,7 +3,7 @@
 {% block content %}
 
     <!-- 导航栏 -->
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top" xmlns="http://www.w3.org/1999/html">
       <div class="container">
         <div class="navbar-header">
           <a class="navbar-brand" href="/index/">软件测试部门结果分析系统</a>
@@ -49,6 +49,26 @@
         </div><!--/.navbar-collapse -->
       {{ row_1 }}
       </div>
+
+     <div class="col-lg-6">
+     <form  method="get" action="/database/operation/">
+        <div class="input-group">
+
+          <input type="text" name='conditions' id='conditions' class="form-control">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-default" type="button">执行</button>
+          </span>
+        <!-- /input-group -->
+       </div>
+     </form>
+
+
+      </div><!-- /.col-lg-6 -->
+
+        {% block operation_result %}
+
+
+        {% endblock %}
 
 <script language="JavaScript">
 function connection() {

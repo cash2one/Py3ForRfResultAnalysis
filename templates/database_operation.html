@@ -1,0 +1,31 @@
+{% extends "database_connection.html" %}
+
+{% block operation_result %}
+     <div class="row">
+        <div class="col-md-12">
+         <div class="col-md-12">
+          <table class="table table-striped">
+              <div class="panel-heading">查询结果</div>
+            <thead>
+              <tr>
+                <th>id</th>
+                 <th>用例名称</th>
+                <th>事务名称</th>
+                <th>测试时间</th>
+                <th>运行次数</th>
+                <th>平均事务时间</th>
+                <th>最大值</th>
+                <th>最小值</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+{#            {% load paginate_tags %}#}
+{#            {% paginate article_list 1 %}#}
+
+            </tbody>
+          </table>
+        </div>
+        </div>
+        </div>
+{% endblock %}

@@ -161,6 +161,13 @@ def data_create(request):
 
     return render(request, 'database_connection.html', {'row_1': row_1})
 
+def data_operation(request):
+
+    conditions = request.GET.get('conditions', '')
+    print(conditions)
+    connn = databaseoperator(request).select(conditions)
+    return render(request, 'database_operation.html',{'row_1': connn})
+
         # for events in event_list:
     #     print(IP_Address,events.IP_Address)
     #     if IP_Address == events.IP_Address and Port==events.Port:
