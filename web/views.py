@@ -20,7 +20,7 @@ from web.operater.databaseoperator import databaseoperator
 
 # Create your views here.
 
-#首页
+#登录
 def login_action(request):
 
     if request.method == 'GET':
@@ -45,7 +45,7 @@ def login_action(request):
 
 
 
-
+#首页
 def index(request):
     result_list = result_test_runss.objects.all()
     username = request.session.get('username', '')
@@ -64,10 +64,12 @@ def index(request):
 
     return render(request,'Index.html',{"user":username,"events":contacts})
 
+#退出
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect("/login/")
 
+#搜索
 def sreach_name(request):
     username = request.session.get('username', '')
     sreach_name = request.GET.get("name", "")
@@ -81,18 +83,21 @@ def sreach_name(request):
     # started_at__contains = sreach_casesname.encode(encoding="utf-8")
     return render(request, "Index.html", {"user": username, "events": event_list})
 
+#删除
 def del_data(request,aid):
     # print('article_id %s' % aid)
     result_data = result_test_runss.objects.get(id = aid)
     result_data.delete()
     return HttpResponseRedirect('/index/')
 
+#图标分析
 def columnar_analysic(request):
 
     result_data = result_test_runss.objects.all()
 
     return render(request,'columnar_analysic.html',{'result_data':result_data})
 
+#图标分析搜索
 def sreach_name_result(request):
     username = request.session.get('username', '')
     sreach_name = request.GET.get("name", "")
@@ -118,18 +123,24 @@ def sreach_name_result(request):
     print(result_data)
     return render(request, "columnar_analysic.html", {"user": username, 'result_data':result_data})
 
+#数据库连接页面显示
 def databascon(request):
     return render(request, 'database_connection.html')
 
+#数据库连接
 def databasconn(request):
     try:
         connn =databaseoperator(request).conn()
-        connn.execute("select * from web_result_test_runss")
+        print(connn)
+        # connn.execute("select * from web_result_test_runss")
+        connn.execute("select * from student")
         row_1 = connn.fetchone()
         return render(request, 'database_connection.html', {'row_1': row_1})
     except Exception as e:
         print(e)
         return render(request, 'database_connection.html')
+
+#数据表创建
 def data_create(request):
     name = request.GET.get('name','')
     IP_Address = request.GET.get('IP_Address','')
@@ -138,22 +149,28 @@ def data_create(request):
     password = request.GET.get('password','')
     print(name,IP_Address,Port,username,password)
     event_list = create_data.objects.filter(Q(IP_Address__contains=IP_Address))
-    print(event_list)
-    for events in event_list:
-        print(IP_Address,events.IP_Address)
-        if IP_Address == events.IP_Address:
-            row_1='该数据已存在，不允许重新创建'
-            # return render(request, 'database_connection.html', {'row_1': '该数据已存在，不允许重新创建'})
+    if create_data.objects.filter(Q(IP_Address__contains=IP_Address)).exists() and create_data.objects.filter(Q(Port__contains=Port)).exists():
+        row_1 = '该数据已存在，不允许重新创建'
+    else:
+        add = create_data(name=name, IP_Address=IP_Address, Port=Port, username=username, password=password)
+        add.save()
+        row_1 = '该数据创建成功'
 
-        #    return render(request, 'database_connection.html',{'row_1': '该数据已存在，不允许重新创建'})
-        # else:
+    return render(request, 'Index.html', {'row_1': row_1})
 
-        else:
-            add = create_data(name=name,IP_Address=IP_Address,Port=Port,username=username,password=password)
-            add.save()
-            row_1 = '该数据创建成功'
-            # return render(request, 'database_connection.html')
-    return render(request, 'database_connection.html', {'row_1':row_1})
+        # for events in event_list:
+    #     print(IP_Address,events.IP_Address)
+    #     if IP_Address == events.IP_Address and Port==events.Port:
+    #         row_1='该数据已存在，不允许重新创建'
+    #         print(row_1)
+    #         # return render(request, 'database_connection.html', {'row_1': row_1})
+    #     else:
+    #         add = create_data(name=name,IP_Address=IP_Address,Port=Port,username=username,password=password)
+    #         add.save()
+    #         row_1 = '该数据创建成功'
+
+
+
 def analysis(request):
 
     d ={

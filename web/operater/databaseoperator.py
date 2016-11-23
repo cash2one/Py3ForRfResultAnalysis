@@ -13,7 +13,6 @@ class databaseoperator(object):
         try:
             if self.username != ''and self.Port!='':
                 conn = pymysql.connect(host = self.IP_Address, port = self.Port, user = self.username, passwd = self.password, db = self.name )
-
                 cursor = conn.cursor()
                 return cursor
             else:
