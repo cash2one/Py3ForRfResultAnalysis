@@ -130,9 +130,30 @@ def databasconn(request):
     except Exception as e:
         print(e)
         return render(request, 'database_connection.html')
+def data_create(request):
+    name = request.GET.get('name','')
+    IP_Address = request.GET.get('IP_Address','')
+    Port = request.GET.get('Port','')
+    username = request.GET.get('username','')
+    password = request.GET.get('password','')
+    print(name,IP_Address,Port,username,password)
+    event_list = create_data.objects.filter(Q(IP_Address__contains=IP_Address))
+    print(event_list)
+    for events in event_list:
+        print(IP_Address,events.IP_Address)
+        if IP_Address == events.IP_Address:
+            row_1='该数据已存在，不允许重新创建'
+            # return render(request, 'database_connection.html', {'row_1': '该数据已存在，不允许重新创建'})
 
+        #    return render(request, 'database_connection.html',{'row_1': '该数据已存在，不允许重新创建'})
+        # else:
 
-
+        else:
+            add = create_data(name=name,IP_Address=IP_Address,Port=Port,username=username,password=password)
+            add.save()
+            row_1 = '该数据创建成功'
+            # return render(request, 'database_connection.html')
+    return render(request, 'database_connection.html', {'row_1':row_1})
 def analysis(request):
 
     d ={

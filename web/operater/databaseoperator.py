@@ -22,3 +22,5 @@ class databaseoperator(object):
             print("Can't connect to MySQL server on %s"%self.name)
 
 
+
+

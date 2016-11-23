@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^sreach_name/result/$', views.sreach_name_result),
     url(r'^database/$',views.databascon),
     url(r'^database/connection/$',views.databasconn),
+    url(r'^database/createdata/$', views.data_create),
     url(r'^TestTools/$',views.show_result),
 
 

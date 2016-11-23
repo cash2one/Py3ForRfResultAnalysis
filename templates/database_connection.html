@@ -32,19 +32,107 @@
 {% block container%}
       <div class="page-header">
         <div id="navbar" class="navbar-collapse collapse">
-          <form class="navbar-form" method="get" action="/database/connection/">
+          <form  id="navbar-form" class="navbar-form" >
+
+{#              method="get" action="/database/connection/"#}
             <div class="form-group">
-              <input name="name" type="text" placeholder="连接用户名" class="form-control">
-              <input name="IP_Address" type="text" placeholder="主机名或IP地址" class="form-control">
-              <input name="Port" type="text" placeholder="端口号" class="form-control">
-              <input name="username" type="text" placeholder="用户名" class="form-control">
-              <input name="password" type="text" placeholder="密码" class="form-control">
+              <input id="name" name="name" type="text" placeholder="连接用户名" class="form-control">
+              <input id="IP_Address" name="IP_Address" type="text" placeholder="主机名或IP地址" class="form-control">
+              <input id="Port" name="Port" type="text" placeholder="端口号" class="form-control">
+              <input id="username" name="username" type="text" placeholder="用户名" class="form-control">
+              <input id="password" name="password" type="text" placeholder="密码" class="form-control">
             </div>
-            <button type="submit" class="btn btn-success">连接测试</button>
-           <button type="submit" class="btn label-primary">新增</button>
+            <button type="submit" class="btn btn-success" onClick="connection()">连接测试</button>
+{#              onClick="connection()"#}
+           <button type="button" class="btn label-primary" onClick="newcreate()">新增</button>
           </form>
         </div><!--/.navbar-collapse -->
       {{ row_1 }}
       </div>
+
+<script language="JavaScript">
+function connection() {
+    var name = $("#name").val()
+    var IP_Address = $("#IP_Address").val()
+    var Port = $("#Port").val()
+    var username = $("#username").val()
+    var password = $("#password").val()
+
+
+    if (!Port & !username) {
+        alert("接口链接为空，请填写后再请求！");
+        return
+    }
+    var str_data = $("#navbar-form input").map(function () {
+        return ($(this).attr("name") + '=' + $(this).val());
+    }).get().join("&");
+
+    alert(name);
+    alert(IP_Address);
+    alert(Port);
+    alert(username);
+    alert(str_data);
+    var tmp = '/database/connection?' + str_data;
+    $.ajax({
+        url: tmp,  //'提交的URL',
+        type: "GET",        ////提交的方式
+        error: erryFunction,  //错误执行方法
+        success:succFunction
+    });
+    return  true;
+    function erryFunction() {
+             alert("error");
+            }
+    function succFunction() {
+                alert('pass');
+    }
+
+}
+function newcreate() {
+    var name = $("#name").val()
+    var IP_Address = $("#IP_Address").val()
+    var Port = $("#Port").val()
+    var username = $("#username").val()
+    var password = $("#password").val()
+    if (!Port & !username) {
+        alert("接口链接为空，请填写后再请求！");
+        return
+    }
+    var str_data = $("#navbar-form input").map(function () {
+        return ($(this).attr("name") + '=' + $(this).val());
+    }).get().join("&");
+
+    alert(name);
+    alert(IP_Address);
+    alert(Port);
+    alert(username);
+    alert(str_data);
+
+    var tmp = '/database/createdata?' + str_data;
+    $.ajax({
+        url: tmp,  //'提交的URL',
+        type: "GET",        ////提交的方式
+        error: erryFunction,  //错误执行方法
+        success:succFunction
+    });
+    return  true;
+    function erryFunction() {
+             alert("error");
+            }
+    function succFunction() {
+                alert('pass');
+    }
+    
+}
+ </script>
+    <script src="/static/bootstrap/js/jquery.min.js"></script>
+    <script src="/static/js/json2.js"></script>
+    <script src="/static/js/jquery.zclip.min.js"></script>
+    <script src="/static/js/JSONFormatter.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+    <script src="/static/js/jquery.cookie.min.js"></script>
+    <script src="/static/js/jquery.dialogbox.js"></script>
+    <script src="/static/js/jquery.form.js"></script>
+    <script src="/static/js/adsbygoogle.js"></script>
 {% endblock %}
 {% endblock %}
