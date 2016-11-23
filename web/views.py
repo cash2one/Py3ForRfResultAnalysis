@@ -132,13 +132,16 @@ def databasconn(request):
     try:
         connn =databaseoperator(request).conn()
         print(connn)
+        if connn is None:
+            return render(request, 'database_connection.html', {'row_1': '连接失败'})
         # connn.execute("select * from web_result_test_runss")
-        connn.execute("select * from student")
-        row_1 = connn.fetchone()
-        return render(request, 'database_connection.html', {'row_1': row_1})
+        # # connn.execute("select * from student")
+        # row_1 = connn.fetchone()
+        else:
+            return render(request, 'database_connection.html', {'row_1': '连接成功'})
     except Exception as e:
         print(e)
-        return render(request, 'database_connection.html')
+        return render(request, 'database_connection.html',{'row_1': e})
 
 #数据表创建
 def data_create(request):
@@ -156,7 +159,7 @@ def data_create(request):
         add.save()
         row_1 = '该数据创建成功'
 
-    return render(request, 'Index.html', {'row_1': row_1})
+    return render(request, 'database_connection.html', {'row_1': row_1})
 
         # for events in event_list:
     #     print(IP_Address,events.IP_Address)
