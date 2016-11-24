@@ -177,6 +177,15 @@ def data_operation(request):
 
     # print(name)
     conditions = request.GET.get('conditions', '')
+    new_conditions = conditions.split(' ')
+
+    #数据库操作
+    if new_conditions[0] == 'update' or new_conditions[0] == 'delete' or new_conditions[0] == 'insert':
+        titlecon = databaseoperator(request,name,IP_Address,Port,username,password).updateData(conditions)
+
+    # elif new_conditions[0] == 'insert':
+    #     titlecon = databaseoperator(request, name, IP_Address, Port, username, password).insertData(conditions)
+
     print(conditions)
     titlecon = databaseoperator(request,name,IP_Address,Port,username,password).spiltdatabase(conditions)
     print(type(titlecon))

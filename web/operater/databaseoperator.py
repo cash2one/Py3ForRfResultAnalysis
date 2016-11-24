@@ -61,6 +61,16 @@ class databaseoperator(object):
         # row_1 = self.conn().fetchone()
         # return row_1
 
+    def updateData(self,parameter):
+        cur = self.conn()
+        cur.execute(parameter)
+        self.conn.commit()
+
+    # def insertData(self,parameter):
+    #     cur = self.conn()
+    #     cur.execute(parameter)
+    #     self.conn.commit()
+
 
 
 
