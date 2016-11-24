@@ -130,15 +130,21 @@ def databascon(request):
 #数据库连接
 def databasconn(request):
     try:
-        connn =databaseoperator(request).conn()
+        name = request.GET.get('name', '')
+        IP_Address = request.GET.get('IP_Address', '')
+        Port = request.GET.get('Port', '')
+        username = request.GET.get('username', '')
+        password = request.GET.get('password', '')
+        # connn =databaseoperator(request).conn()
+        connn = databaseoperator(request,name,IP_Address,Port,username,password).conn()
         print(connn)
         if connn is None:
             return render(request, 'database_connection.html', {'row_1': '连接失败'})
-        # connn.execute("select * from web_result_test_runss")
-        # # connn.execute("select * from student")
-        # row_1 = connn.fetchone()
         else:
-            return render(request, 'database_connection.html', {'row_1': '连接成功'})
+            # connn.execute("select * from web_result_test_runss")
+            # connn.execute("select * from student")
+            # row_1 = connn.fetchone()
+            return render(request, 'database_connection.html', {'row_1':'连接成功'})
     except Exception as e:
         print(e)
         return render(request, 'database_connection.html',{'row_1': e})
@@ -161,12 +167,22 @@ def data_create(request):
 
     return render(request, 'database_connection.html', {'row_1': row_1})
 
+#数据库操作
 def data_operation(request):
+    name = request.session.get('name','')
+    IP_Address = request.session.get('IP_Address','')
+    Port = request.session.get('Port','')
+    username = request.session.get('username','')
+    password = request.session.get('password','')
 
+    # print(name)
     conditions = request.GET.get('conditions', '')
     print(conditions)
-    connn = databaseoperator(request).select(conditions)
-    return render(request, 'database_operation.html',{'row_1': connn})
+    titlecon = databaseoperator(request,name,IP_Address,Port,username,password).spiltdatabase(conditions)
+    connn = databaseoperator(request,name,IP_Address,Port,username,password).ExecQuery(conditions)
+    print(len(titlecon))
+    # connn.execute('SHOW columns from '+par)
+    return render(request, 'database_operation.html',{'connn': connn,'leng':len(titlecon),'titlecon':titlecon})
 
         # for events in event_list:
     #     print(IP_Address,events.IP_Address)

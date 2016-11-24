@@ -7,22 +7,35 @@
           <table class="table table-striped">
               <div class="panel-heading">查询结果</div>
             <thead>
-              <tr>
-                <th>id</th>
-                 <th>用例名称</th>
-                <th>事务名称</th>
-                <th>测试时间</th>
-                <th>运行次数</th>
-                <th>平均事务时间</th>
-                <th>最大值</th>
-                <th>最小值</th>
-                <th>操作</th>
+             <tr>
+{#                  {{ leng }}#}
+                  {% for events in titlecon%}
+                      <th>{{ events.0}}</th>
+                  {% endfor %}
+
+{#                         <th>用例名称</th>#}
+{#                        <th>事务名称</th>#}
+{#                        <th>测试时间</th>#}
+{#                        <th>运行次数</th>#}
+{#                        <th>平均事务时间</th>#}
+{#                        <th>最大值</th>#}
+{#                        <th>最小值</th>#}
+{#                        <th>操作</th>#}
               </tr>
             </thead>
             <tbody>
 {#            {% load paginate_tags %}#}
 {#            {% paginate article_list 1 %}#}
 
+
+                {% for values in connn %}
+                    <tr>
+                        {% for t in  values %}
+                                <td>{{ t}}</td>
+                        {% endfor %}
+                    </tr>
+
+                {% endfor %}
             </tbody>
           </table>
         </div>
