@@ -40,12 +40,14 @@ class databaseoperator(object):
     def spiltdatabase(self,parameter):
         cur = self.conn()
         self.data = parameter.split(' ')
-        print(self.data[-1])
-        cur.execute("SHOW columns from "+self.data[-1])
-        print(self.data)
-        reList = cur.fetchall()
-        print(reList)
-        return reList
+        if self.data[1]=='*':
+            cur.execute("SHOW columns from "+self.data[-1])
+            reList = cur.fetchall()
+            return reList
+        else:
+            self.data1 = self.data[1].split(',')
+            print(self.data1)
+            return self.data1
 
     def ExecQuery(self,parameter):
         cur = self.conn()

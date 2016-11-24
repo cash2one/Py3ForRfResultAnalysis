@@ -179,10 +179,14 @@ def data_operation(request):
     conditions = request.GET.get('conditions', '')
     print(conditions)
     titlecon = databaseoperator(request,name,IP_Address,Port,username,password).spiltdatabase(conditions)
+    print(type(titlecon))
     connn = databaseoperator(request,name,IP_Address,Port,username,password).ExecQuery(conditions)
     print(len(titlecon))
     # connn.execute('SHOW columns from '+par)
-    return render(request, 'database_operation.html',{'connn': connn,'leng':len(titlecon),'titlecon':titlecon})
+    if isinstance(titlecon,list):
+        return render(request, 'database_operation.html',{'connn': connn, 'leng': len(titlecon), 'titlecon': titlecon,'data1':'1'})
+    else:
+        return render(request, 'database_operation.html',{'connn': connn,'leng':len(titlecon),'titlecon':titlecon,'data1':'*'})
 
         # for events in event_list:
     #     print(IP_Address,events.IP_Address)

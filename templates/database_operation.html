@@ -8,10 +8,20 @@
               <div class="panel-heading">查询结果</div>
             <thead>
              <tr>
-{#                  {{ leng }}#}
+{#                  {{ titlecon }}#}
+                {{ data1 }}
+             {% if data1 == '*' %}
                   {% for events in titlecon%}
+
                       <th>{{ events.0}}</th>
                   {% endfor %}
+             {% elif data1 == '1' %}
+                 {% for events in titlecon%}
+
+                      <th>{{ events}}</th>
+                  {% endfor %}
+
+             {% endif %}
 
 {#                         <th>用例名称</th>#}
 {#                        <th>事务名称</th>#}
