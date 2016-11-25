@@ -16,6 +16,7 @@ from web.models import *
 from web.models import result_test_runss
 from django.db.models import Q
 from web.operater.databaseoperator import databaseoperator
+from web.operater.PythonAdb import PythonAdb
 
 
 # Create your views here.
@@ -216,6 +217,12 @@ def data_operation(request):
 
 def monkeytest(request):
     return render(request,'monkeytest.html')
+
+def operator(request):
+
+    cm = PythonAdb.get_devices(request)
+    print(cm)
+    return render(request,'monkeytest.html',{'cm':cm})
 
 def analysis(request):
 

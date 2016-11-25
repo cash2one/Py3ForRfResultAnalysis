@@ -1,6 +1,7 @@
 import datetime
 from selenium import webdriver
 import time
+import os
 
 def get_now_time():
     """获取当前时间"""
@@ -13,6 +14,7 @@ def return_After_computing_time(lasttime,nowtime):
         computingtime = (lasttime-nowtime)
         return computingtime
 
+os.system('ipconfig')
 a = get_now_time()
 drvier =webdriver.Chrome()
 drvier.get("https://hao.360.cn/")
