@@ -214,7 +214,8 @@ def data_operation(request):
     #         add.save()
     #         row_1 = '该数据创建成功'
 
-
+def monkeytest(request):
+    return render(request,'monkeytest.html')
 
 def analysis(request):
 

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+    {#   <!-- 导航栏 -->#}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/index/">软件测试部门结果分析系统</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li ><a href="/index/">报告列表</a></li>
+            <li ><a href="/analysis/">图标分析</a></li>
+            <li><a href="/database/">数据库连接工具</a> </li>
+            <li class="active"><a href="/monkeytest/">monkey工具</a> </li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+           <li><a href="#">{{user}}</a></li>
+           <li><a href="http://v3.bootcss.com/examples/dashboard/#">Settings</a></li>
+            <li><a href="http://v3.bootcss.com/examples/dashboard/#">Profile</a></li>
+            <li><a href="http://v3.bootcss.com/examples/dashboard/#">Help</a></li>
+            <li><a href="/logout/">退出</a></li>
+         </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <!--发布会表单-->
+      <div class="page-header">
+        <div id="navbar" class="navbar-collapse collapse">
+{#          <form class="navbar-form" method="get" action="/sreach_name/result/">#}
+{#            <div class="form-group">#}
+{#              <input name="name" type="text" placeholder="事务名称/用例名称/开始时间" class="form-control">#}
+{#              <input name="casesname" type="text" placeholder="结束时间" class="form-control">#}
+{#            </div>#}
+            <button type="submit" class="btn btn-success">获取设备驱动</button>
+            <input name="name" type="text" placeholder="设备驱动" class="form-control">
+{#          </form>#}
+        </div><!--/.navbar-collapse -->
+      </div>
+{% endblock %}
