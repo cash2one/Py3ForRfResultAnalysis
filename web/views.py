@@ -169,34 +169,40 @@ def data_create(request):
 
 #数据库操作
 def data_operation(request):
-    name = request.session.get('name','')
-    IP_Address = request.session.get('IP_Address','')
-    Port = request.session.get('Port','')
-    username = request.session.get('username','')
-    password = request.session.get('password','')
+    try:
+        name = request.session.get('name','')
+        IP_Address = request.session.get('IP_Address','')
+        Port = request.session.get('Port','')
+        username = request.session.get('username','')
+        password = request.session.get('password','')
 
-    # print(name)
-    conditions = request.GET.get('conditions', '')
-    new_conditions = conditions.split(' ')
+        # print(name)
+        conditions = request.GET.get('conditions', '')
+        if conditions !="":
+            new_conditions = conditions.split(' ')
 
-    #数据库操作
-    if new_conditions[0] == 'update' or new_conditions[0] == 'delete' or new_conditions[0] == 'insert':
-        titlecon = databaseoperator(request,name,IP_Address,Port,username,password).updateData(conditions)
+            #数据库操作
+            if new_conditions[0] == 'update' or new_conditions[0] == 'delete' or new_conditions[0] == 'insert':
+                titlecon = databaseoperator(request,name,IP_Address,Port,username,password).updateData(conditions)
 
-    # elif new_conditions[0] == 'insert':
-    #     titlecon = databaseoperator(request, name, IP_Address, Port, username, password).insertData(conditions)
+            # elif new_conditions[0] == 'insert':
+            #     titlecon = databaseoperator(request, name, IP_Address, Port, username, password).insertData(conditions)
 
-    print(conditions)
-    titlecon = databaseoperator(request,name,IP_Address,Port,username,password).spiltdatabase(conditions)
-    print(type(titlecon))
-    connn = databaseoperator(request,name,IP_Address,Port,username,password).ExecQuery(conditions)
-    print(len(titlecon))
-    # connn.execute('SHOW columns from '+par)
-    if isinstance(titlecon,list):
-        return render(request, 'database_operation.html',{'connn': connn, 'leng': len(titlecon), 'titlecon': titlecon,'data1':'1'})
-    else:
-        return render(request, 'database_operation.html',{'connn': connn,'leng':len(titlecon),'titlecon':titlecon,'data1':'*'})
-
+            print(conditions)
+            titlecon = databaseoperator(request,name,IP_Address,Port,username,password).spiltdatabase(conditions)
+            print(type(titlecon))
+            connn = databaseoperator(request,name,IP_Address,Port,username,password).ExecQuery(conditions)
+            print(len(titlecon))
+            # connn.execute('SHOW columns from '+par)
+            if isinstance(titlecon,list):
+                return render(request, 'database_operation.html',{'connn': connn, 'leng': len(titlecon), 'titlecon': titlecon,'data1':'1'})
+            else:
+                return render(request, 'database_operation.html',{'connn': connn,'leng':len(titlecon),'titlecon':titlecon,'data1':'*'})
+        else:
+            return render(request, 'database_operation.html',)
+    except Exception as e:
+        print(e)
+        return render(request, 'database_operation.html', )
         # for events in event_list:
     #     print(IP_Address,events.IP_Address)
     #     if IP_Address == events.IP_Address and Port==events.Port:

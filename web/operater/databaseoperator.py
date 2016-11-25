@@ -20,18 +20,19 @@ class databaseoperator(object):
         request.session['password'] = self.password
 
     def conn(self):
-        if not self.name:
-            raise(NameError,'没有设置数据库信息')
         # try:
-        elif self.username != ''and self.Port!='' and self.username!='':
-              self.conn = pymysql.connect(host = self.IP_Address, port = int(self.Port), user = self.username, passwd = self.password, db = self.name )
-              cursor = self.conn.cursor()
-              if not cursor:
-                  raise (NameError, "连接数据库失败")
-              else:
-                  return cursor
-        else:
-                print('账号或端口或用户名称不能为空')
+            if not self.name:
+                raise(NameError,'没有设置数据库信息')
+            # try:
+            elif self.username != ''and self.Port!='' and self.username!='':
+                  self.conn = pymysql.connect(host = self.IP_Address, port = int(self.Port), user = self.username, passwd = self.password, db = self.name )
+                  cursor = self.conn.cursor()
+                  if not cursor:
+                      raise (NameError, "连接数据库失败")
+                  else:
+                      return cursor
+            else:
+                    print('账号或端口或用户名称不能为空')
 
 
         # except Exception as e:
@@ -62,9 +63,13 @@ class databaseoperator(object):
         # return row_1
 
     def updateData(self,parameter):
-        cur = self.conn()
-        cur.execute(parameter)
-        self.conn.commit()
+        try:
+
+            cur = self.conn()
+            cur.execute(parameter)
+            self.conn.commit()
+        except Exception  as e:
+            print(e)
 
     # def insertData(self,parameter):
     #     cur = self.conn()

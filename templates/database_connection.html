@@ -52,6 +52,11 @@
               {% endblock %}
       </div>
 
+
+
+
+
+
      <div class="col-lg-6">
      <form  method="get" action="/database/operation/">
         <div class="input-group">
@@ -137,7 +142,7 @@ function newcreate() {
         error: erryFunction,  //错误执行方法
         success:succFunction
     });
-    return  false;
+    return  true;
     function erryFunction() {
              alert("error");
             }
