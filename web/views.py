@@ -216,12 +216,23 @@ def data_operation(request):
     #         row_1 = '该数据创建成功'
 
 def monkeytest(request):
-    return render(request,'monkeytest.html')
-
-def operator(request):
-
     cm = PythonAdb.get_devices(request)
     print(cm)
+    return render(request,'monkeytest.html',{'cm':cm})
+
+def operator(request):
+    L = []
+    cm=request.GET.get('name','')
+    L.append(request.GET.get('p',''))
+    L.append(request.GET.get('r',''))
+    L.append(request.GET.get('t',''))
+    L.append(request.GET.get('m',''))
+
+    print(' '.join(L))
+    a = ' '.join(L)
+    # print(a)
+    PythonAdb.adb_operator(a)
+    # print(cm)
     return render(request,'monkeytest.html',{'cm':cm})
 
 def analysis(request):

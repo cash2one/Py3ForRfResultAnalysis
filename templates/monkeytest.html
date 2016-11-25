@@ -36,8 +36,54 @@
 {#              <input name="name" type="text" placeholder="事务名称/用例名称/开始时间" class="form-control">#}
 {#              <input name="casesname" type="text" placeholder="结束时间" class="form-control">#}
 {#            </div>#}
+               <table class="table table-striped">
+                    <div class="panel-heading">查询结果</div>
+                    <tbody>
+                        <tr>
+                            <td>设备驱动</td><td><input name="name" type="text" value='{{ cm }}' class="form-control"></td>
+                            <td>指定一个或多个包:-p</td><td><input name="p" type="text" placeholder='-p' class="form-control"></td>
+                        </tr>
+                         <tr>
+                            <td>包名：</td><td><input name="r" type="text" placeholder='软件包：com.XXXX' class="form-control"></td>
+                            <td>间隔时间:--throttle(毫秒)</td><td><input name="t" type="text" placeholder='--throttle' class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <td>触摸事件：--pct-touch 百分比</td><td><input name="to" type="text" placeholder='--pct-touch 30' class="form-control"></td>
+                            <td>动作事件:--pct-motion 百分比</td><td><input name="mo" type="text" placeholder='--pct-motion 30' class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <td>轨迹事件：--pct-trackball 百分比</td><td><input name="tr" type="text" placeholder='--pct-trackball 30' class="form-control"></td>
+                            <td>基本”导航事件:--pct-nav 百分比</td><td><input name="n" type="text" placeholder='--pct-nav 30' class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <td>“主要”导航事件：--pct-majornav 百分比</td><td><input name="ma" type="text" placeholder='--pct-majornav 30' class="form-control"></td>
+                            <td>“系统”按键事件:--pct-syskeys 百分比</td><td><input name="sy" type="text" placeholder='--pct-syskeys 30' class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <td>调整其它类型事件：--pct-anyevent 百分比</td><td><input name="anye" type="text" placeholder='--pct-anyevent 30' class="form-control"></td>
+                            <td>调用脚本:-f</td><td><input name="f" type="text" placeholder='-f' class="form-control"></td>
+                        </tr>
+
+                        <tr>
+                            <td>日志级别：-v</td><td><input name="vt" type="text" placeholder='-v -v -v' class="form-control"></td>
+                            <td>程序崩溃:--ignore-crashes</td><td><input name="igc" type="text" placeholder='--ignore-crashes' class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <td>超时处理： --ignore-timeouts</td><td><input name="igt" type="text" placeholder='--ignore-timeouts' class="form-control"></td>
+                            <td>发生许可错误: --ignore-security-exceptions</td><td><input name="tgs" type="text" placeholder='--ignore-security-exceptions' class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <td>应用程序发生错误处理：  --kill-process-after-error</td><td><input name="kp" type="text" placeholder=' --kill-process-after-error' class="form-control"></td>
+                            <td>监视并报告: --monitor-native-crashes</td><td><input name="mn" type="text" placeholder='--monitor-native-crashes' class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <td>事件数：  </td><td><input name="m" type="text" placeholder='事件数' class="form-control"></td>
+{#                            <td>监视并报告: --monitor-native-crashes</td><td><input name="mn" type="text" placeholder='--monitor-native-crashes' class="form-control"></td>#}
+                        </tr>
+                    </tbody>
+               </table>
             <button type="submit" class="btn btn-success">获取设备驱动</button>
-            <input name="name" type="text" placeholder='{{ cm }}' class="form-control">
+
           </form>
         </div><!--/.navbar-collapse -->
       </div>
