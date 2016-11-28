@@ -6,16 +6,15 @@ import common
 
 class PythonAdb(object):
 
-    def __init__(self,a):
+    def __init__(self,L):
         # print(a)
         # cm = request.GET.get('name', '')
         self.mk = monkey.Monkey()
         self.cm = common.Common()
         self.cf = configparser.ConfigParser()
-        # self.L = []
+        self.L = L
 
-        self.b = a
-        print(type(self.b))
+        print(L)
         # self.L.append(request.GET.get('p', ''))
         # self.L.append(request.GET.get('r', ''))
         # self.L.append(request.GET.get('t', ''))
@@ -34,8 +33,10 @@ class PythonAdb(object):
     def adb_operator(self):
         pa = '222'
         print(pa)
-        self.a = os.popen('adb shell monkey '+self.b)
+        # self.m = self.b.append(0,'adb shell monkey')
+        print('adb shell monkey '+self.L)
+        self.a = os.popen('adb shell monkey '+self.L)
 
-        # return self.a
+        return self.a
 
         # spl = devices[1]

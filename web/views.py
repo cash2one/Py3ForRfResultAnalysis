@@ -228,10 +228,10 @@ def operator(request):
     L.append(request.GET.get('t',''))
     L.append(request.GET.get('m',''))
 
-    print(' '.join(L))
+    # print(' '.join(L))
     a = ' '.join(L)
     # print(a)
-    PythonAdb.adb_operator(a)
+    PythonAdb(a).adb_operator()
     # print(cm)
     return render(request,'monkeytest.html',{'cm':cm})
 
