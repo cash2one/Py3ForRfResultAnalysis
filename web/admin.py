@@ -16,5 +16,10 @@ class ResultStatueAdmin(admin.ModelAdmin):
     search_fields = ['test_run_id']
     list_filter = ['test_run_id']
 
+class DataAdmin(admin.ModelAdmin):
+    list_display = ['name','IP_Address','Port','username','password']
+
+
 admin.site.register(result_test_run_status,ResultStatueAdmin)
 admin.site.register(result_test_runss, ResultAdmin)
+admin.site.register(create_data,DataAdmin)

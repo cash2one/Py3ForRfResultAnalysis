@@ -60,6 +60,7 @@ SUIT_CONFIG = {  # suit页面配置
     'MENU': (
             '管理',
              {'label': '报告列表管理', 'app': 'web', 'models': ('web.result_test_runss')},  #每一个字典表示左侧菜单的一栏
+            {'label': '数据库管理', 'app': 'web', 'models': ('web.create_data')},
              # {'label': '用户管理', 'app': 'sign', 'models': ('sign.Userprofile','sign.UserGroup','auth.Group')},
              # {'label': u'SQL管理', 'app': 'web_sso', 'models': ('web_sso.Sql', 'web_sso.PreSql', 'web_sso.Direction')},  # 可以是多个字典
              ),

@@ -226,7 +226,9 @@ def operator(request):
     L.append(request.GET.get('p',''))
     L.append(request.GET.get('r',''))
     L.append(request.GET.get('t',''))
+    L.append(request.GET.get('vt',''))
     L.append(request.GET.get('m',''))
+    L.append(request.GET.get('lj',''))
 
     # print(' '.join(L))
     a = ' '.join(L)
