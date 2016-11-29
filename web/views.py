@@ -17,6 +17,7 @@ from web.models import result_test_runss
 from django.db.models import Q
 from web.operater.databaseoperator import databaseoperator
 from web.operater.PythonAdb import PythonAdb
+from web.operater.PythonPerformance import PyPerforman
 
 
 # Create your views here.
@@ -236,6 +237,13 @@ def operator(request):
     PythonAdb(a).adb_operator()
     # print(cm)
     return render(request,'monkeytest.html',{'cm':cm})
+
+def performan(request):
+    a = 'com.yunfang.eias'
+    print(a)
+    PyPerforman(a).Per_cpu()
+    PyPerforman(a).Per_men()
+    return render(request,'all_info.html')
 
 def analysis(request):
 

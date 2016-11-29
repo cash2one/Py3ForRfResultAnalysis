@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^database/operation/$', views.data_operation),
     url(r'^monkeytest/$', views.monkeytest),
     url(r'^monkeytest/operator/$', views.operator),
+    url(r'^monkeytest/performan/$', views.performan),
     url(r'^TestTools/$',views.show_result),
 
 

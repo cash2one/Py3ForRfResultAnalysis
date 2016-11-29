@@ -31,12 +31,12 @@ class PythonAdb(object):
         return self.dev
 
     def adb_operator(self):
-        pa = '222'
-        print(pa)
         # self.m = self.b.append(0,'adb shell monkey')
         print('adb shell monkey '+self.L)
         self.a = os.popen('adb shell monkey '+self.L)
 
         return self.a
+
+
 
         # spl = devices[1]
