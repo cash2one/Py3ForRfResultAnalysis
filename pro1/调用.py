@@ -1,15 +1,13 @@
 __auth = '吕梓清'
-from 图片水印 import img
-import httplib2, urllib
-import urllib.request
-import sys
 import http.cookiejar
+import urllib.request
+
+from pro1.图片水印 import img
 
 cookie = http.cookiejar.CookieJar()
 cjhdr  =  urllib.request.HTTPCookieProcessor(cookie)
 opener = urllib.request.build_opener(cjhdr)
-import requests
-from 新增 import operator
+from pro1.新增 import operator
 
 for i in range (2):
     print(i)
