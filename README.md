@@ -5,7 +5,8 @@
 ##主程序：
 
 ##效果图：
-![image](https://github.com/xiaoyaojjian/Py3ForRfResultAnalysis/blob/master/static/image/QQ图片.png)
-![image](https://github.com/xiaoyaojjian/Py3ForRfResultAnalysis/blob/master/static/image/QQ图片.png)
-![image](https://github.com/xiaoyaojjian/Py3ForRfResultAnalysis/blob/master/static/image/QQ图片.png)
-![image](https://github.com/xiaoyaojjian/Py3ForRfResultAnalysis/blob/master/static/image/QQ图片.png)
+![image](https://github.com/xiaoyaojjian/Py3ForRfResultAnalysis/blob/master/static/image/测试图片1.jpg)
+![image](https://github.com/xiaoyaojjian/Py3ForRfResultAnalysis/blob/master/static/image/测试图片2.jpg)
+![image](https://github.com/xiaoyaojjian/Py3ForRfResultAnalysis/blob/master/static/image/测试图片3.jpg)
+![image](https://github.com/xiaoyaojjian/Py3ForRfResultAnalysis/blob/master/static/image/测试图片4.jpg)
+![image](https://github.com/xiaoyaojjian/Py3ForRfResultAnalysis/blob/master/static/image/测试图片5.jpg)

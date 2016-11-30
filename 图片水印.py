@@ -11,15 +11,16 @@ class img(object):
         print(self.lj,self.Roadking )
     def img(self):
 
-
+            tt = 'zuth=xiaoyaojjian'
             im = Image.open(self.lj).convert('RGBA')
             txt = Image.new('RGBA',im.size,(0,0,0,0))
             # fnt = ImageFont.truetype("C:\\Windows\\Fonts\\COOPBL.TTF",20)
             d = ImageDraw.Draw(txt)
-            d.text((txt.size[0]-280,txt.size[1]-30),time.ctime(),fill=(255,255,255,255))
+            d.text((txt.size[0]-380,txt.size[1]-130),tt,fill=(255,255,255,255))
             out = Image.alpha_composite(im, txt)
             # out.show()
             # a = 'C:\\Users\\Administrator\\Desktop\\'+str(time.time())+'.jpg'
+            # a = self.Roadking+'测试图片'+str(self.num)+'.jpg'
             a = self.Roadking+'测试图片'+str(self.num)+'.jpg'
             out.save(a)
 
