@@ -1,0 +1,146 @@
+{% extends 'index1.html' %}
+{% block sidebar %}
+
+<!--sidebar-menu-->
+<div id="sidebar"> <a href="#" class="visible-phone"><i class="icon icon-tint"></i>Buttons &amp; icons</a>
+  <ul>
+    <li><a href="/interfaceTest/"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+{#    <li><a href="/charts/"><i class="icon icon-signal"></i> <span>Charts &amp; graphs</span></a> </li>#}
+    <li class="submenu"> <a href="#"><i class="icon icon-tag"></i> <span>测试报告</span> <span class="label label-important">2</span></a>
+      <ul>
+        <li ><a href="/report_list/">报告列表</a></li>
+        <li ><a href="/report_graph_analysis/">图表分析</a></li>
+      </ul>
+    </li>
+    <li class="submenu"> <a href="#"><i class="icon icon-tags"></i> <span>数据库工具</span> <span class="label label-important">2</span></a>
+      <ul>
+        <li><a href="/form_common/">数据库操作</a></li>
+        <li ><a href="/database_list/">数据库列表</a></li>
+      </ul>
+    </li>
+    <li class="submenu"> <a href="#"><i class="icon icon-tags"></i> <span>接口测试</span> <span class="label label-important">3</span></a>
+      <ul>
+        <li><a href="/create_interfacetest/">创建接口测试用例</a></li>
+        <li ><a href="/interface_test_case/">接口测试用例管理</a></li>
+        <li  ><a href="/usecasemanagement/">接口测试用例集</a></li>
+        <li><a href="/interface_test_report_management/">接口测试报告管理</a></li>
+      </ul>
+    </li>
+    <li class="submenu"> <a href="#"><i class="icon icon-tags"></i> <span>UI自动化测试</span> <span class="label label-important">2</span></a>
+      <ul>
+        <li  class="active"><a href="/WebUI/">webUI平台</a></li>
+        <li><a href="/MobileTerminalUI/">移动端UI</a></li>
+{#        <li><a href="/usecasemanagement/">接口测试用例集</a></li>#}
+{#        <li><a href="/interface_test_report_management/">接口测试报告管理</a></li>#}
+      </ul>
+    </li>
+{#    <li><a href="/widgets/"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>#}
+{#    <li><a href="/tables/"><i class="icon icon-th"></i> <span>Tables</span></a></li>#}
+{#    <li><a href="/grid/"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>#}
+{#    <li class="submenu"> <a href="#"><i class="icon icon-list"></i> <span>Forms</span> <span class="label label-important">3</span></a>#}
+{#      <ul>#}
+{#        <li><a href="/form_common/">Basic Form</a></li>#}
+{#        <li><a href="/form_validation/">Form with Validation</a></li>#}
+{#        <li><a href="/form_wizard/">Form with Wizard</a></li>#}
+{#      </ul>#}
+{#    </li>#}
+{#    <li><a href="/buttons/"><i class="icon icon-tint"></i> <span>Buttons &amp; icons</span></a></li>#}
+{#    <li><a href="/Eelements/"><i class="icon icon-pencil"></i> <span>Eelements</span></a></li>#}
+{#    <li class="submenu"> <a href="#"><i class="icon icon-file"></i> <span>Addons</span> <span class="label label-important">5</span></a>#}
+{#      <ul>#}
+{#        <li><a href="/index2/">Dashboard2</a></li>#}
+{#        <li><a href="/gallery/">Gallery</a></li>#}
+{#        <li><a href="/calendar/">Calendar</a></li>#}
+{#        <li><a href="/invoice/">Invoice</a></li>#}
+{#        <li><a href="/chat/">Chat option</a></li>#}
+{#      </ul>#}
+{#    </li>#}
+    <li class="submenu"> <a href="#"><i class="icon icon-info-sign"></i> <span>Error</span> <span class="label label-important">4</span></a>
+      <ul>
+        <li><a href="/error403/">Error 403</a></li>
+        <li><a href="/error404/">Error 404</a></li>
+        <li><a href="/error405/">Error 405</a></li>
+        <li><a href="/error500/">Error 500</a></li>
+      </ul>
+    </li>
+    <li class="content"> <span>Monthly Bandwidth Transfer</span>
+      <div class="progress progress-mini progress-danger active progress-striped">
+        <div style="width: 77%;" class="bar"></div>
+      </div>
+      <span class="percent">77%</span>
+      <div class="stat">21419.94 / 14000 MB</div>
+    </li>
+    <li class="content"> <span>Disk Space Usage</span>
+      <div class="progress progress-mini active progress-striped">
+        <div style="width: 87%;" class="bar"></div>
+      </div>
+      <span class="percent">87%</span>
+      <div class="stat">604.44 / 4000 MB</div>
+    </li>
+  </ul>
+</div>
+{% endblock %}
+{% block content-header %}
+    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">WebUI自动化平台</a> </div>
+{% endblock %}
+{% block container-fluid %}
+ <div class="widget-box">
+     <div class="widget-content">
+         <span class="icon"> <i class="icon-tasks"></i> </span>
+         <table>
+              <thead>
+                <tr>
+
+                     <th>
+                         <form class="navbar-form" method="get" action="/add_item/">
+                            <button type="submit" class="btn btn-success">添加项目</button>
+                      </form>
+                     </th>
+                     <th style="width:500px"></th>
+                    <form class="navbar-form" method="get" action="/sreach_name/">
+                        <th><input name="name" type="text" placeholder="id/事务名称/用例名称/时间" class="form-control"></th>
+                        <th><button type="submit" class="btn btn-success">搜索</button></th>
+                    </form>
+
+                </tr>
+
+              </thead>
+         </table>
+          <table  id="params_table" class="table table-bordered table-striped with-check">
+              <thead>
+                <tr>
+                     <th>#</th>
+                     <th>项目ID</th>
+                     <th>项目名称</th>
+                    <th>创建时间</th>
+                    <th>创建者</th>
+                    <th>操作</th>
+
+                </tr>
+              </thead>
+                 <tbody>
+
+                 {% for values in  result %}
+                     <form method="get" name="form1" action="/interface_test_case/batch/{{ values.id }}/d"  >
+                            <tr>
+                                <td><input type="checkbox" /></td>
+                              <td class="itemID">{{ values.id }}</td>
+                              <td class="itemName"><a href="/interface_test_case/result/{{ values.id }}/d">{{ values.itemName }}</a></td>
+                              <td class="created_time">{{ values.created_time }}</td>
+                                <td class="createname">{{ values.createname }}</td>
+
+                              <td> <a href="/WebUIindex/descript/{{ values.id }}/d">项目详情</a>|
+                                  <a href="/WebUIindex/create/{{ values.id }}/d">创建任务</a>|
+
+                                  <a href="/WebUIindex/delete/{{ values.id }}/d"><span class="label btn-warning btn-large">删除</span></a>
+                              </td>
+                            </tr>
+                      </form>
+                 {% endfor %}
+
+				    </tbody>
+
+            </table>
+        </div><!--/.navbar-collapse -->
+  </div>
+{% endblock %}

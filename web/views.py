@@ -1,6 +1,7 @@
 import datetime
 import random
 import pymysql
+from django.http import JsonResponse
 
 import django
 import matplotlib.pyplot as plt
@@ -18,6 +19,21 @@ from django.db.models import Q
 from web.operater.databaseoperator import databaseoperator
 from web.operater.PythonAdb import PythonAdb
 from web.operater.PythonPerformance import PyPerforman
+import requests
+import urllib
+
+from selenium import webdriver
+
+import sys
+import time,platform
+
+sys.path.append('\common')
+from .common import location
+sys.path.append('./interface')
+sys.path.append('./db_fixture')
+from HTMLTestRunner3 import HTMLTestRunner
+import unittest
+from run_test import MyTestCase
 
 
 # Create your views here.
@@ -92,12 +108,27 @@ def del_data(request,aid):
     result_data.delete()
     return HttpResponseRedirect('/index/')
 
+def rep_del_data(request,aid):
+    result_data = result_test_runss.objects.get(id = aid)
+    result_data.delete()
+    return HttpResponseRedirect('/report_list/')
+
+#新增
+
+
 #图标分析
 def columnar_analysic(request):
 
     result_data = result_test_runss.objects.all()
 
     return render(request,'columnar_analysic.html',{'result_data':result_data})
+
+
+def report_graph_analysis(request):
+    result_data = result_test_runss.objects.all()
+    return render(request,'report_graph_analysis.html',{"result_data":result_data})
+
+
 
 #图标分析搜索
 def sreach_name_result(request):
@@ -216,6 +247,142 @@ def data_operation(request):
     #         add.save()
     #         row_1 = '该数据创建成功'
 
+def database_list(request):
+    #新数据库列表
+    titlecon = databaseoperator(request,'rfresultanalysis','localhost','3307','root','').spiltdatabase('select * from web_create_data')
+    connn = databaseoperator(request,'rfresultanalysis','localhost','3307','root','').ExecQuery('select * from web_create_data')
+    return render(request,'database_list.html',{'titlecon': titlecon,'connn':connn,'data1':'*'})
+
+def create_interfacetest(request):
+
+    return render(request,'create_interfacetest.html')
+
+def new_interfacetest(request):
+    # result = createinterfacetest.objects.all()
+    caseID = request.GET.get('caseID')
+    name = request.GET.get('name')
+    method = request.GET.get('method')
+    page_content = request.GET.get('page_content')
+    url = request.GET.get('url')
+    parameter = request.GET.get('parameter')
+    print(caseID,name,method,page_content,url,parameter)
+    createinterfacetest.objects.create(caseID=caseID,name=name,method=method,contentType=page_content,URL=url,param=parameter).save()
+    return render(request,'create_interfacetest.html')
+
+def new_interfacetest_id(request,aid):
+    usercaseID = aid
+    caseID = request.GET.get('caseID')
+    name = request.GET.get('name')
+    method = request.GET.get('method')
+    page_content = request.GET.get('api_contentType')
+    url = request.GET.get('URL')
+    parameter = request.GET.get('param')
+    # print(caseID,name,method,page_content,url,parameter)
+    createinterfacetest.objects.create(caseID=caseID, name=name, method=method, contentType=page_content, URL=url,
+                                       param=parameter,usercaseID=usercaseID).save()
+    result = createinterfacetest.objects.all()
+    return render(request, 'interface_test_case.html',{'result':result})
+
+def new_interfacetest_new(request,aid):
+    return render(request,'newcase.html',{'usercaseID':aid})
+
+
+
+def interface_test_case(request):
+    result = createinterfacetest.objects.all()
+    # connn = databaseoperator(request, 'rfresultanalysis', 'localhost', '3307', 'root', '').ExecQuery(
+    #     'select * from web_createinterfacetest')
+    return render(request,'interface_test_case.html',{'result':result})
+
+def newcaseaggregate(request):
+    usercasename = request.GET.get('name')
+    casedescribe = request.GET.get('descript')
+    print(usercasename,casedescribe)
+    Use_case_management.objects.create(usercasename=usercasename,casedescribe=casedescribe).save()
+    result = Use_case_management.objects.all()
+    return render(request,'usecasemanagement.html',{'result':result})
+
+def usecasemanagement(request):
+    result = Use_case_management.objects.all()
+    return render(request,'usecasemanagement.html',{'result':result})
+
+def interface_casetest_result(request,aid):
+    print(aid)
+    result_data = createinterfacetest.objects.filter(Q(usercaseID=aid))
+    return render(request,'interface_test_case.html',{'result':result_data,'usercaseID':aid})
+
+
+def interface_test_result(request):
+    caseID = request.GET.get('caseID')
+    name = request.GET.get('name')
+    method = request.GET.get('method')
+    URL = request.GET.get('URL')
+    param = request.GET.get('param')
+    eresults = request.GET.get('eresults')
+    Actualoutput = request.GET.get('Actualoutput')
+    testresult = request.GET.get('testresult')
+
+    if method == 'get':
+        print('1234')
+        requ = requests.get(URL+'?'+param)
+
+
+    elif method == 'POST':
+        print('234')
+        requ = requests.post(URL+'?'+param)
+
+    # print(caseID,name,method,URL,param,eresults,Actualoutput,testresult)
+    cID = createinterfacetest.objects.get(caseID=caseID)
+    cID.Actualoutput = requ.text
+    cID.eresults = eresults
+    cID.save()
+    if createinterfacetest.objects.filter(Q(Actualoutput__contains=eresults)).exists():
+        cID = createinterfacetest.objects.get(caseID=caseID)
+        cID.testresult = '成功'
+        cID.save()
+
+        # testresult = '成功'
+    # if eresults == requ.text:
+    #     testresult = '成功'
+    else:
+        cID = createinterfacetest.objects.get(caseID=caseID)
+        cID.testresult = '失败'
+        cID.save()
+    result = createinterfacetest.objects.all()
+    return render(request, 'interface_test_case.html', {'result': result})
+
+def batch(request,aid):
+    # print(aid)
+    result_data = createinterfacetest.objects.filter(Q(usercaseID=aid))
+    for result in result_data:
+        # print(result.caseID,result.name,result.method,result.URL,result.contentType,result.param,result.Actualoutput,result.eresults,result.testresult)
+        if result.method == 'get':
+            # print('1234')
+            r = requests.get(result.URL+'?'+result.param)
+        elif result.method == 'POST':
+            # print('234')
+            r = requests.post(result.URL+'?'+result.param)
+        cID = createinterfacetest.objects.get(caseID=result.caseID)
+        cID.Actualoutput = r.text
+        cID.eresults = result.eresults
+        cID.save()
+        if createinterfacetest.objects.filter(Q(Actualoutput__contains=result.eresults)).exists():
+            cID = createinterfacetest.objects.get(caseID=result.caseID)
+            cID.testresult = '成功'
+            cID.save()
+
+            # testresult = '成功'
+        # if eresults == requ.text:
+        #     testresult = '成功'
+        else:
+            cID = createinterfacetest.objects.get(caseID=result.caseID)
+            cID.testresult = '失败'
+            cID.save()
+        result = createinterfacetest.objects.all()
+    rs = Use_case_management.objects.all()
+    return render(request,'usecasemanagement.html',{'result':rs})
+
+
 def monkeytest(request):
     cm = PythonAdb.get_devices(request)
     print(cm)
@@ -244,6 +411,359 @@ def performan(request):
     PyPerforman(a).Per_cpu()
     PyPerforman(a).Per_men()
     return render(request,'all_info.html')
+
+#新版本
+def interfaceTest(request):
+    return render(request,'index1.html')
+
+def charts(request):
+    return render(request,'charts.html')
+
+def widgets(request):
+    return render(request,'widgets.html')
+
+
+def report_list(request):
+    result_list = result_test_runss.objects.all()
+
+    return render(request,'report_list.html',{'events':result_list})
+
+def tables(request):
+    return render(request,'tables.html')
+
+def grid(request):
+    return render(request,'grid.html')
+
+def form_common(request):
+    return render(request,'form-common.html')
+
+def form_validation(request):
+    return render(request,'form-validation.html')
+
+def form_wizard(request):
+    return render(request,'form-wizard.html')
+
+def buttons(request):
+    return render(request,'buttons.html')
+
+def Eelements(request):
+    return render(request,'Eelements.html')
+
+def index2(request):
+    return render(request,'index2.html')
+
+def gallery(request):
+    return render(request,'gallery.html')
+
+def calendar(request):
+    return render(request,'calendar.html')
+
+def invoice(request):
+    return render(request,'invoice.html')
+
+def chat(request):
+    return render(request,'chat.html')
+
+def error403(request):
+    return render(request,'error403.html')
+
+def error404(request):
+    return render(request,'error404.html')
+
+def error405(request):
+    return render(request,'error405.html')
+
+def error500(request):
+    return render(request,'error500.html')
+
+
+def get_event_list(request):
+
+    eid = request.GET.get("eid", "")      # 发布会id
+    name = request.GET.get("name", "")    # 发布会名称
+
+    if eid == '' and name == '':
+        return JsonResponse({'status':10021,'message':'parameter error'})
+
+def WebUIindex(request):
+    result = new_item.objects.all()
+    return render(request,'WebUIindex.html',{'result':result})
+
+def add_item(request):
+    return render(request,'add_item.html')
+
+def new_items(request):
+    itemname = request.GET.get('itemname')
+    itemdescript = request.GET.get('itemdescript')
+    createname = request.session.get('username', '')
+    new_item.objects.create(itemName=itemname,itemdescript=itemdescript,createname=createname)
+    result = new_item.objects.all()
+    return render(request,'WebUIindex.html',{'result':result})
+
+def descript(request,aid):
+    result = new_item.objects.get(id=aid)
+    return render(request,'itemdescript.html',{'result':result})
+
+def itemcreate(request,aid):
+    result = new_item.objects.get(id=aid)
+    newresult = add_item_case_set.objects.filter(Q(newitemID=aid))
+    return render(request,'itemlist.html',{'result':result,'newresult':newresult})
+
+
+def itemdelete(request,aid):
+    result = new_item.objects.get(id=aid)
+    result.delete()
+    return HttpResponseRedirect('/WebUI/')
+
+def itemcaseset(request,aid):
+    result = new_item.objects.get(id=aid)
+    return render(request,'item_case_set.html',{'result':result})
+
+def itemcasesetcreate(request,aid):
+    casesetName = request.GET.get('casesetName','')
+    casesetdescript = request.GET.get('casesetdescript','')
+    createname = request.session.get('username', '')
+    add_item_case_set.objects.create(newitemID=aid,casesetName=casesetName,createname=createname,casesetdescript=casesetdescript)
+    newresult = add_item_case_set.objects.all()
+    return render(request,'itemlist.html',{'newresult':newresult})
+
+def case(request,aid):
+    # result = uicase.objects.get(itemID=aid)
+    result = uicase.objects.filter(Q(itemID=aid))
+    return render(request, 'case.html', {'newresult': result,'id':aid})
+    # print(aid)
+    # return render(request, 'case.html', {'id':aid})
+
+
+def casesteps(request,aid):
+    ad = add_item_case_set.objects.get(id=aid)
+    return render(request,'casestep.html',{'id':aid,'ad':ad})
+
+def casestep_new(request):
+    itemID = request.GET.get('itemID','')
+    Versionnumber = request.GET.get('Version_number','')
+    casename = request.GET.get('casename','')
+    casesetName = request.GET.get('casesetName','')
+    ScriptType = request.GET.get('ScriptType','')
+    Label = request.GET.get('Label','')
+    descript = request.GET.get( 'descript','')
+    print(itemID,Versionnumber,casename,casesetName,ScriptType,Label,descript)
+    if uicase.objects.filter(Q(casename=casename)& Q(itemID=itemID)).exists():
+        print('已存在数据')
+    else:
+        uicase.objects.create(itemID=itemID,Versionnumber=Versionnumber,casename=casename,casesetName=casesetName,ScriptType=ScriptType,Label=Label,descript=descript)
+    result = uicase.objects.filter(Q(itemID=request.GET.get('itemID','')))
+    return HttpResponseRedirect('/itemlist/step/'+itemID+'/d/',{'newresult':result})
+
+def casestep_edit(request,aid):
+    # print(aid)
+    result = uicase.objects.get(id=aid)
+    # print(result.id,result.casename,result.itemID)
+    return render(request,'casestepeidt.html',{'id':aid,'itemID':result.itemID,'casename':result.casename,
+                                               'Versionnumber':result.Versionnumber,'casesetName':result.casesetName,
+                                               'ScriptType':result.ScriptType,'Label':result.Label,'descript':result.descript})
+
+def casestep_edit_create(request,aid):
+    # print(aid)
+    itemID = request.GET.get('itemID', '')
+    Versionnumber = request.GET.get('Version_number', '')
+    casename = request.GET.get('casename', '')
+    casesetName = request.GET.get('casesetName', '')
+    ScriptType = request.GET.get('ScriptType', '')
+    Label = request.GET.get('Label', '')
+    descript = request.GET.get('descript', '')
+    # print(itemID,Versionnumber,casename,casesetName,ScriptType,Label,descript)
+    uicase.objects.filter(id=aid).update(itemID=itemID,Versionnumber=Versionnumber,casename=casename,casesetName=casesetName,ScriptType=ScriptType,Label=Label,descript=descript)
+    # uicase.objects.update(itemID=itemID,Versionnumber=Versionnumber,casename=casename,casesetName=casesetName,ScriptType=ScriptType,Label=Label,descript=descript)
+    result = uicase.objects.filter(Q(itemID=request.GET.get('itemID', '')))
+    return render(request, 'case.html', {'newresult': result})
+
+def newcasestep(request,aid):
+    print(aid)
+    uicase_result = uicase.objects.filter(id=aid)
+    for i in uicase_result:
+        add_result = add_item_case_set.objects.filter(id=i.itemID)
+        for n in add_result:
+           new_item_result = new_item.objects.filter(id=n.newitemID)
+           for ne in new_item_result:
+                 print(ne.itemName)
+        # print(i.itemID)
+        # key = uicase.objects.filter(itemID=i.itemID)
+        # for k in key:
+        #     print(k.itemID,k.casename)
+    keyresult = uicase.objects.filter(itemID=uicase_result.get(id=aid).itemID)
+
+    result = casestep.objects.filter(Q(itemID=aid))
+    return render(request,'newcasestep.html',{'id':aid,'itemname':ne.itemName,'casesetName':n.casesetName,'result':result,'keyword':keyresult})
+
+def casestepcreate(request,aid):
+    stepID = request.GET.get('stepID')
+    kword = request.GET.get('kword')
+    Roadking = request.GET.get('Roadking')
+    Param = request.GET.get('Param')
+    Descript = request.GET.get('Descript')
+    casestep.objects.create(caseID=stepID,itemID=aid,kword=kword,Roadking=Roadking,Param=Param,Descript=Descript)
+    result = casestep.objects.filter(Q(itemID=aid))
+    return HttpResponseRedirect('/newcasestep/'+aid+'/d/',{'result':result})
+
+
+y = 0
+k = []
+b = []
+m = []
+def caserun(request,aid):
+    print(aid)
+    # new = casestep.objects.filter(Q(itemID=aid))
+    new = casestep.objects.filter(Q(itemID=aid))
+    for n in new:
+        if n.kword.lower() == 'Open'.lower():
+            browser = location.open(n.Roadking, n.Param)
+            b.append(browser)
+            # print(b[0])
+        elif n.kword.lower() == 'Input_Text'.lower():
+            location.Input_Text(browser, n.Roadking, n.Param)
+            time.sleep(10)
+        elif n.kword.lower() == 'New_Click'.lower():
+            # print(b[0])
+            if b[0] is not None:
+                location.New_Click(browser, n.Roadking)
+            elif m[0]is not None:
+                print(k[0])
+                location.New_Click(k[0], n.Roadking)
+            time.sleep(38)
+        elif n.kword.lower() == 'new_browser_close'.lower():
+            time.sleep(5)
+            location.new_browser_close(browser)
+        elif uicase.objects.filter(Q(casename=n.kword)).exists():
+            # print(n.itemID)
+            # lzq = uicase.objects.filter(id=n.itemID)
+            # for ll in lzq:
+            #     print(ll.itemID)
+            browser = new2(aid,n.kword)
+            m.append(browser)
+
+
+
+    result = casestep.objects.all()
+    return HttpResponseRedirect('/newcasestep/' + aid + '/d/', {'result': result})
+
+# def new1 (new):
+#     for n in new:
+#         if n.kword.lower() == 'Open'.lower():
+#             browser = location.open(n.Roadking, n.Param)
+#         elif n.kword.lower() == 'Input_Text'.lower():
+#             location.Input_Text(browser, n.Roadking, n.Param)
+#             time.sleep(10)
+#         elif n.kword.lower() == 'New_Click'.lower():
+#             location.New_Click(browser, n.Roadking)
+#             time.sleep(38)
+#         elif n.kword.lower() == 'new_browser_close'.lower():
+#             location.new_browser_close(browser)
+
+def new2(aid,new,m=None):
+    print(aid,new)
+    print('吕梓清')
+    if uicase.objects.filter(Q(casename=new)).exists():
+        lzq = uicase.objects.filter(id=aid)
+        n = uicase.objects.filter(itemID=lzq.get(id=aid).itemID).get(casename=new)
+        # n = uicase.objects.get(casename=new)
+        # n = uicase.objects.get(casename=new)
+        print(n.id,n.casename)
+        new = casestep.objects.filter(Q(itemID=n.id))
+
+        for n in new:
+            print(n.kword)
+            if n.kword.lower() == 'Open'.lower():
+                browser = location.open(n.Roadking, n.Param)
+                k.append(browser)
+
+
+            elif n.kword.lower() == 'Input_Text'.lower():
+                print('黄远阜')
+                location.Input_Text(k[y-1], n.Roadking, n.Param)
+                time.sleep(10)
+            elif n.kword.lower() == 'New_Click'.lower():
+                print('黄')
+                browser = location.New_Click(k[y-1], n.Roadking)
+                time.sleep(38)
+            elif n.kword.lower() == 'new_browser_close'.lower():
+                location.new_browser_close(k[y-1])
+            print(k[0])
+
+        return k[0]
+
+def runcase(request,aid):
+    name = uicase.objects.get(id=aid).casename
+    print(name)
+    test_app = "./web"  # 定义测试应用
+    now_time = time.strftime("%Y_%m_%d_%H_%M_%S")
+    fp = open(test_app + "/report/" + now_time + "result.html", 'wb')
+    runner = HTMLTestRunner(fp,
+                            title="xxx测试报告",
+                            description="运行环境：%s, %s" % (platform.system(), "Chrome"))
+    # discover = unittest.defaultTestLoader.discover(test_app + "/test_case", pattern='*_case.py')
+    suiteTest = unittest.TestSuite()
+    # h=MyTestCase().__getattr__('testCase1')
+    name =aid +name
+    print(name)
+    suiteTest.addTest(MyTestCase(name))
+
+    # suiteTest.addTest(MyTestCase("testCase1"))
+    # suiteTest.addTest(MyTestCase("退出"))
+    # suiteTest.addTest(MyTestCase("注册"))
+    # suiteTest.addTest(MyTestCase("testCase3"))
+    runner.run(suiteTest)
+    fp.close()
+    result = uicase.objects.filter(Q(itemID=aid))
+    return render(request, 'case.html', {'newresult': result, 'id': aid})
+
+
+def Modular1(aid,kword):
+
+
+    # location.New_Click(driver,"xpath=.//*[@id='expmenu-freebie']/li/ul/li[1]/ul/li[1]/a")
+    # new = casestep.objects.filter(Q(itemID=aid))
+    # for n in new:
+    newid = uicase.objects.filter(Q(casename=kword))
+        # print(n.kword)
+    # for new in newid:
+    new1(newid.get(id))
+            # print(new.id)
+            # Modular(new.id)
+            # browser = new.casename
+            # print(browser)
+            # Modular(aid)
+
+
+
+def Modular(aid):
+    '''
+    模块
+    '''
+    print(aid)
+    new = casestep.objects.filter(Q(itemID=aid))
+    k = []
+    i = 0
+    for n in new:
+        print(n.id)
+        # for i in n.id:
+        print(n.kword)
+        if n.kword.lower() == 'Open'.lower():
+            browser = location.open(n.Roadking, n.Param)
+            k.append(browser)
+            print(k[0])
+
+        # elif n.kword.lower() == 'Input_Text'.lower():
+        #     print(i)
+            # print(k[0])
+            # browser = k[0]
+            # location.Input_Text(k[0], n.Roadking, n.Param)
+        # elif n.kword.lower() == 'New_Click'.lower():
+        #     location.New_Click(browser, n.Roadking)
+        #     time.sleep(10)
+        i = i+1
+    # return browser
+
 
 def analysis(request):
 
@@ -330,4 +850,7 @@ def show_result(request):
     for i in range(n_groups+1):
         images.append('/media/images/results/'+str(i)+'.png')
     return render(request, 'result_image.html', {'images': images})
+
+
+
 

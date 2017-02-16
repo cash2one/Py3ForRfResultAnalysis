@@ -1,0 +1,72 @@
+{% extends 'WebUIindex.html' %}
+{% block content-header %}
+    <div id="breadcrumb">
+        <a href="#" title="Go to Home" class="tip-bottom">
+            <i class="icon-home"></i> Home
+        </a>
+        <a href="/WebUI/" class="tip-bottom">WebUI自动化平台</a>
+        <a href="#" class="current">{{ result.itemName }}</a>
+    </div>
+{% endblock %}
+{% block container-fluid %}
+<div class="widget-box">
+     <div class="widget-content">
+         <span class="icon"> <i class="icon-tasks"></i> </span>
+         <table>
+              <thead>
+                <tr>
+
+                     <th>
+                         <form class="navbar-form" method="get" action="/add_item_case_set/{{ result.id }}/d">
+                            <button type="submit" class="btn btn-success">新建测试用例集</button>
+                      </form>
+                     </th>
+                     <th style="width:500px"></th>
+                    <form class="navbar-form" method="get" action="/sreach_name/">
+                        <th><input name="name" type="text" placeholder="id/事务名称/用例名称/时间" class="form-control"></th>
+                        <th><button type="submit" class="btn btn-success">搜索</button></th>
+                    </form>
+
+                </tr>
+
+              </thead>
+         </table>
+          <table  id="params_table" class="table table-bordered table-striped with-check">
+              <thead>
+                <tr>
+                     <th>#</th>
+                     <th>用例集ID</th>
+                     <th>用例集名称</th>
+                    <th>创建时间</th>
+                    <th>创建者</th>
+                    <th>操作</th>
+
+                </tr>
+              </thead>
+                 <tbody>
+
+                 {% for values in  newresult %}
+                     <form method="get" name="form1" action="/interface_test_case/batch/{{ values.id }}/d"  >
+                            <tr>
+                                <td><input type="checkbox" /></td>
+                              <td class="itemID">{{ values.id }}</td>
+                              <td class="itemName"><a href="/interface_test_case/result/{{ values.id }}/d">{{ values.casesetName }}</a></td>
+                              <td class="created_time">{{ values.created_time }}</td>
+                                <td class="createname">{{ values.createname }}</td>
+
+                              <td> <a href="/itemlist/step/{{ values.id }}/d">测试脚本</a>|
+{#                                  <a href="/WebUIindex/create/{{ values.id }}/d">创建任务</a>|#}
+
+                                  <a href="/WebUIindex/delete/{{ values.id }}/d"><span class="label btn-success btn-large">执行</span></a>
+                              </td>
+                            </tr>
+                      </form>
+                 {% endfor %}
+
+				    </tbody>
+
+            </table>
+     </div>
+</div>
+
+{% endblock %}

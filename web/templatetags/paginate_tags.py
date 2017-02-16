@@ -8,6 +8,7 @@ register = template.Library()
 @register.simple_tag(takes_context=True)
 # 这个装饰器表明这个函数是一个模板标签，takes_context = True 表示接收上下文对象，就是前面所说的封装了各种变量的 Context 对象。
 def paginate(context, object_list, page_count):
+
     # context是Context 对象，object_list是你要分页的对象，page_count表示每页的数量
 
     left = 3 # 当前页码左边显示几个页码号 -1，比如3就显示2个
@@ -15,7 +16,7 @@ def paginate(context, object_list, page_count):
 
     paginator = Paginator(object_list, page_count) # 通过object_list分页对象
     page = context['request'].GET.get('page') # 从 Http 请求中获取用户请求的页码号
-
+    print(page)
     try:
         object_list = paginator.page(page) # 根据页码号获取第几页的数据
         context['current_page'] = int(page) # 把当前页封装进context（上下文）中

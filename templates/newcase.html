@@ -1,0 +1,62 @@
+{% extends 'interface_test_case.html' %}
+{% block container-fluid %}
+
+                        <div class="modal-content">
+                            <form method="get" name="form1" action="/new_interfacetest/{{ usercaseID }}/d">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        &times;
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">
+                                        用例集
+                                    </h4>
+                                </div>
+                                <div class="modal-body">
+                                    <table id="params_table" class="table table-bordered table-striped with-check">
+
+                                    <tr>
+                                        <td style="width:50px;">用例ID号：</td>
+                                        <td><input style="width:300px" id="caseID" type="text" name="caseID" value=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td>接口名称：</td>
+                                        <td class="name"><input style="width:300px" id="name" type="text" name="name" value=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td>接口协议：</td>
+                                        <td class="method"><input style="width:300px" id="method" type="text" name="method" value=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td>url：</td>
+                                        <td class="URL"><textarea style="width:400px" id="URL" name="URL" ></textarea></td>
+                                    </tr>
+                                    <tr>
+                                        <td>请求格式</td>
+                                        <td class="api_contentType"><select id="api_contentType" name="api_contentType" class="form-control">
+                                        <option value="application/json; charset=utf-8">application/json</option>
+                                        <option value="html; charset=utf-8">html</option>
+                                        <option value="text; charset=utf-8">text</option>
+						                </select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>参数：</td>
+                                        <td class="param"><textarea style="width:400px" id="param" name="param" ></textarea></td>
+                                    </tr>
+                                    <tr>
+                                        <td>期待结果：</td>
+                                        <td class="eresults"><textarea style="width:400px" id="eresults" name="eresults" ></textarea></td>
+                                    </tr>
+                                    </table>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">
+                                        提交更改
+                                    </button>
+                                </div>
+                            </form>
+                        </div><!-- /.modal-content -->
+
+{% endblock %}

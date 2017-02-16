@@ -7,13 +7,19 @@ ${demo.css}
 		</style>
 		<script type="text/javascript">
 $(function () {
-    $('#container').highcharts({
+{#    $('#container').highcharts({#}
+    var chart = new Highcharts.Chart({
+                colors: ["#7cb5ec", "#f7a35c"],
+                chart: {
+                    type: 'column',
+                    renderTo: 'container'
+                },
         data: {
             table: 'datatable'
         },
-        chart: {
-            type: 'column'
-        },
+{#        chart: {#}
+{#            type: 'column'#}
+{#        },#}
         title: {
             text: '测试报告分析图'
         },
@@ -50,9 +56,9 @@ $(function () {
 
           <ul class="nav navbar-nav navbar-right">
            <li><a href="#">{{user}}</a></li>
-           <li><a href="http://v3.bootcss.com/examples/dashboard/#">Settings</a></li>
-            <li><a href="http://v3.bootcss.com/examples/dashboard/#">Profile</a></li>
-            <li><a href="http://v3.bootcss.com/examples/dashboard/#">Help</a></li>
+           <li><a href="/interfaceTest/">Settings</a></li>
+{#            <li><a href="http://v3.bootcss.com/examples/dashboard/#">Profile</a></li>#}
+{#            <li><a href="http://v3.bootcss.com/examples/dashboard/#">Help</a></li>#}
             <li><a href="/logout/">退出</a></li>
          </ul>
           <form class="navbar-form navbar-right">

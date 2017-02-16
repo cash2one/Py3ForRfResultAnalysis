@@ -1,0 +1,256 @@
+{% extends 'WebUIindex.html' %}
+{% block content-header %}
+    <div id="breadcrumb">
+        <a href="#" title="Go to Home" class="tip-bottom">
+            <i class="icon-home"></i> Home
+        </a>
+        <a href="/WebUI/" class="tip-bottom">WebUI自动化平台</a>
+        <a href="#" class="current">测试步骤</a>
+    </div>
+{% endblock %}
+{% block container-fluid %}
+    <div class="widget-box">
+
+         <div class="widget-content">
+            <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+            <h5>新增测试步骤</h5>
+            </div>
+             <table id="params_table" class="table table-bordered table-striped with-check">
+					<thead>
+				        <tr>
+                            <td width="6%">#</td>
+				            <th style="width:30px;">步骤ID：</th>
+                             <th style="width:80px;">关键字</th>
+                             <th style="width:60px;">路劲</th>
+                             <th style="width:100px;">输入参数值</th>
+                             <th style="width:50px;">所属项目</th>
+                             <th style="width:100px;">步骤描述</th>
+                             <th style="width:100px;">操作</th>
+				        </tr>
+                        <tr>
+
+                        </tr>
+				    </thead>
+                 <tbody>
+                 <form method="get" action="/newcasestep/create/new/{{ id }}/d">
+                 <tr>
+                     <td><input type="checkbox" name = "chk " ></td>
+                     <td><input style="width:30px;" class="params_stepID input-text" type="text" name="stepID"title="步骤ID号" alt="步骤ID号" value="" maxlength="100"/>	</td></td>
+                     <td><select id="kword" name="kword" class="form-control">
+							<option value="Open"  selected="">Open</option>
+							<option value="Get_Text">Get Text</option>
+							<option value="Input_Text">Input Text</option>
+							<option value="Get_Value">Get Value</option>
+							<option value="New_Click">Click</option>
+							<option value="new_browser_close">Close</option>
+                            {% for keyword in keyword %}
+							<option value="{{ keyword.casename }}keyword">{{ keyword.casename }}</option>
+                            {% endfor %}
+{#							<option value="登录">登录</option>#}
+{#							<option value="询价">询价</option>#}
+
+						</select></td>
+                     <td ><input style="width:100px;" class="params_Roadking input-text" type="text" name="Roadking" title="路劲" alt="路劲" value="" maxlength="100"/>	</td>
+                     <td ><input style="width:100px;" class="params_Param input-text" type="text" name="Param" title="输入参数值" alt="输入参数值" value="" maxlength="100"/>	</td>
+{#                     <td ><input style="width:100px;" class="params_Project input-text" type="text" name="Project" title="所属项目" alt="所属项目" value="{{ itemname }}" maxlength="100"/>	</td>#}
+                     <td>{{ itemname }}</td>
+                     <td ><input style="width:100px;" class="params_Descript input-text" type="text" name="Descript" title="步骤描述" alt="步骤描述" value="" maxlength="100"/>	</td>
+                    <td><button class='btn btn-primary' id="add_url_parameter" type="submit">保存</button></td>
+                 </tr>
+                </form>
+                 </tbody>
+{#				    <tbody>#}
+{#				    	<tr id="params_end">#}
+{##}
+{#				    		<td colspan="3">#}
+{#				    			<button class='btn btn-primary' id="add_url_parameter" onClick="addLine()"type="button">添加参数</button>#}
+{#                                <button class='btn btn-warning' id="add_raw_url_parameter" onClick="addLine1()" type="button" >批量添加</button>#}
+{#                                <button class="btn btn-danger" id="del_url_parameter" onClick="delLine()" type="button">删除参数</button>#}
+{#				    		</td>#}
+{#				    	</tr>#}
+{##}
+{#				    </tbody>#}
+
+                </table>
+             <div class="widget-title"> <span class="icon"><i class="icon-th-list"></i></span>
+            <h5>测试步骤列表</h5>
+            </div>
+            <table  id="title_table" class="table table-bordered table-striped with-check">
+                     <thead>
+                         <tr>
+                             <th style="width:3px;">#</th>
+                             <th style="width:30px;">步骤ID：</th>
+                             <th style="width:80px;">步骤描述</th>
+                             <th style="width:60px;">关键字</th>
+                             <th style="width:100px;">路劲</th>
+                             <th style="width:50px;">输入参数值</th>
+                             <th style="width:100px;">所属项目</th>
+                             <th style="width:100px;">用例名称</th>
+                             <th>操作</th>
+                          </tr>
+                      </thead>
+
+                    <form class="form-inline" role="form" id="showDataForm" >
+
+                   {% for values in result %}
+                        <tr>
+
+                      <td><input type="checkbox" /></td>
+                      <td style="width:50px;">{{ values.caseID }}</td>
+                      <td style="width:100px;">{{ values.Descript }}</td>
+                      <td style="width:100px;">{{ values.kword }}</td>
+                       <td style="width:150px;">{{ values.Roadking }}</td>
+                        <td style="width:100px;">{{ values.Param }}</td>
+                        <td style="width:100px;">{{ itemname }}</td>
+                        <td style="width:100px;">{{ casesetName }}</td>
+                      <td>
+{#                          <button class='btn btn-success' type="button" onClick="Apitest()" >编辑</button>#}
+{#                    <button class='btn btn-primary' type="button"  onclick="">运行</button>#}
+                          <a href="/newcasestep/run/{{ values.itemID }}/d"><span class="label btn-success btn-large">执行</span></a>
+
+{#                    <button class='btn btn-warning' onclick="saveapi()" >删除</button></td>#}
+
+                  </tr>
+                        {% endfor %}
+
+              </table>
+		</div> <!-- /login-content -->
+
+
+         </div>
+    </div>
+{#<script language="JavaScript">#}
+{#    var param_cnt = 0;#}
+{#    function addLine(){#}
+{#        param_cnt++;#}
+{#					add_parameter(param_cnt, "", "")#}
+{#    }#}
+{##}
+{##}
+{#     function delLine(){#}
+{#            var i;#}
+{#            var count;#}
+{#            count = params_table.rows.length;#}
+{#            alert(count)#}
+{#            if(count>=4){#}
+{#            params_table.deleteRow(params_table.rows.length-3)#}
+{#                for(i=0;i<count-1;i++){#}
+{#                    if(document.chk[i].checked){#}
+{#                        alert("aa");#}
+{#                    }#}
+{#                }#}
+{#            }#}
+{#        }#}
+{##}
+{#    function save() {#}
+{#        var i =1;#}
+{#        alert(i)#}
+{#        var params = get_all_parameter();#}
+{#        alert(params)#}
+{#        $.cookie("params", params_2_str(params));#}
+{#        #}
+{#    }#}
+{##}
+{#     function params_togg() {#}
+{#					if ($("input[name=body_params]:checked") && $("input[name=body_params]:checked").length > 0) {#}
+{#						$("#params_table").show();#}
+{#                        alert('on')#}
+{#						$.cookie("body_on", "on")#}
+{#					} else {#}
+{#						$("#params_table").hide();#}
+{#                        alert('cuo')#}
+{#						$.cookie("body_on", "")#}
+{#					}#}
+{#				}#}
+{##}
+{#    function add_parameter(cnt, stepID,Descript,keyword,Roadking,Param,Project,value) {#}
+{##}
+{#                    if (stepID == "undefined" || stepID == null) {#}
+{#						stepID = ""#}
+{#					}#}
+{#                    if (Descript == "undefined" || Descript == null) {#}
+{#						Descript = ""#}
+{#					}#}
+{#                    if (keyword == "undefined" || keyword == null) {#}
+{#						keyword = ""#}
+{#					}#}
+{#                    if (Roadking == "undefined" || Roadking == null) {#}
+{#						Roadking = ""#}
+{#					}#}
+{#                    if (Param == "undefined" || Param == null) {#}
+{#						Param = ""#}
+{#					}#}
+{#                    if (Project == "undefined" || Project == null) {#}
+{#						Project = ""#}
+{#					}#}
+{#					if (value == "undefined" || value == null) {#}
+{#						value = ""#}
+{#					}#}
+{#					$("#params_end").before('	<tr class="params_p" cnt="' + cnt + '">	' +#}
+{#                            '<td><input type=checkbox name = chk " + newLine + " ></td>	' +#}
+{#                            '<td ><input style="width:30px;" class="params_stepID input-text" type="text" name="p_stepID_' + cnt + '" title="步骤ID号" alt="步骤ID号" value="' + stepID + '" maxlength="100"/>	</td>' +#}
+{#                            '<td ><input style="width:80px;" class="params_Descript input-text" type="text" name="p_Descript_' + cnt + '" title="步骤描述" alt="步骤描述" value="' + Descript + '" maxlength="100"/>	</td>' +#}
+{#                            '<td ><input style="width:100px;" class="params_keyword input-text" type="text" name="p_keyword_' + cnt + '" title="关键字" alt="关键字" value="' + keyword + '" maxlength="100"/>	</td>' +#}
+{#                            '<td ><input style="width:100px;" class="params_Roadking input-text" type="text" name="p_Roadking_' + cnt + '" title="路劲" alt="路劲" value="' + Roadking + '" maxlength="100"/>	</td>' +#}
+{#                            '<td ><input style="width:100px;" class="params_Parame input-text" type="text" name="p_Param_' + cnt + '" title="输入参数值" alt="输入参数值" value="' + Param + '" maxlength="100"/>	</td>' +#}
+{#                            '<td ><input style="width:100px;" class="params_Project input-text" type="text" name="p_Project_' + cnt + '" title="所属项目" alt="所属项目" value="' + Project + '" maxlength="5000"/>	</td>' +#}
+{#                            '<td><button type="button" class="btn btn-warning btn-large"onclick="save()" >保存 </button></td>						</tr>			')#}
+{#				}#}
+{#    function get_all_parameter() {#}
+{#                    alert('jije')#}
+{#					var params = new Array();#}
+{#					$(".params_p").each(function() {#}
+{#						var cnt = $(this).attr("cnt");#}
+{#                        alert(cnt)#}
+{#						var stepID = $(this).find("input[name=p_stepID_" + cnt + "]").val();#}
+{#						var Descript = $(this).find("input[name=p_Descript_" + cnt + "]").val();#}
+{#						var keyword = $(this).find("input[name=p_keyword_" + cnt + "]").val();#}
+{#						var Roadking = $(this).find("input[name=p_Roadking_" + cnt + "]").val();#}
+{#						var Param = $(this).find("input[name=p_Param_" + cnt + "]").val();#}
+{#						var Project = $(this).find("input[name=p_Project_" + cnt + "]").val();#}
+{##}
+{#						if (is_empty(name) || is_empty(value)) {#}
+{#							return false#}
+{#						}#}
+{#						params.push({#}
+{#							stepID: stepID,#}
+{#							Descript: Descript,#}
+{#                            keyword:keyword,#}
+{#                            Roadking:Roadking,#}
+{#                            Param:Param,#}
+{#                            Project:Project,#}
+{##}
+{#						})#}
+{#                        alert(stepID)#}
+{#					});#}
+{##}
+{#					return params#}
+{##}
+{#				}#}
+{#    function params_2_str(params) {#}
+{#					var str = "";#}
+{#                    var str = {},eet=[];#}
+{#                    debugger;#}
+{#					for (var i = 0; i < params.length; i++) {#}
+{#						var p = params[i];#}
+{#                        alert(p.stepID);#}
+{#                        str['stepID'] = p.stepID;#}
+{#                        str['Descript'] = p.Descript;#}
+{#                        str['keyword'] = p.keyword;#}
+{#                        str['Roadking'] = p.Roadking;#}
+{#                        str['Param'] = p.Param;#}
+{#                        str['Project'] = p.Project;#}
+{#                        str = 'stepID' + "=" + p.stepID+"&" + 'Descript' + "=" + p.Descript+"&" + 'keyword' + "=" + p.keyword+"&" + 'Roadking' + "=" + p.Roadking+"&" + 'Param' + "=" + p.Param+"&" + 'Project' + "=" + p.Project#}
+{#                        alert(str)#}
+{#						if (p.name) {#}
+{#							str = str + "&" + stepID + "=" + p.stepID#}
+{#						}#}
+{#					}#}
+{#					if (str.length > 0) {#}
+{#						str = str.substring(1)#}
+{#					}#}
+{#                    alert(str.Param)#}
+{#					return str#}
+{#				}#}
+{#    </script>#}
+{% endblock %}

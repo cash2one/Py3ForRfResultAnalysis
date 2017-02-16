@@ -1,0 +1,69 @@
+{% extends 'itemlist.html' %}
+{% block container-fluid %}
+<div class="widget-box">
+     <div class="widget-content">
+         <span class="icon"> <i class="icon-tasks"></i> </span>
+         <table>
+              <thead>
+                <tr>
+
+                     <th>
+                         <form class="navbar-form" method="get" action="/add_case_step/{{ id }}/d">
+                            <button type="submit" class="btn btn-success">新建</button>
+{#                             <button type="submit" class="btn btn-warning">删除</button>#}
+                      </form>
+
+                     </th>
+                     <th style="width:500px"></th>
+                    <form class="navbar-form" method="get" action="/sreach_name/">
+                        <th><input name="name" type="text" placeholder="id/事务名称/用例名称/时间" class="form-control"></th>
+                        <th><button type="submit" class="btn btn-success">搜索</button></th>
+                    </form>
+
+                </tr>
+
+              </thead>
+         </table>
+          <table  id="params_table" class="table table-bordered table-striped with-check">
+              <thead>
+                <tr>
+                     <th>#</th>
+                     <th>版本编号</th>
+                     <th>脚本名称</th>
+                    <th>所属用例集</th>
+                    <th>脚本类型</th>
+                    <th>创建日期</th>
+                    <th>标签</th>
+                    <th>描述</th>
+                    <th>操作</th>
+
+                </tr>
+              </thead>
+                 <tbody>
+
+                 {% for values in  newresult %}
+                     <form method="get" name="form1" action="/interface_test_case/batch/{{ values.id }}/d"  >
+                            <tr>
+                                <td><input type="checkbox" /></td>
+                              <td class="Versionnumber">{{ values.Versionnumber }}</td>
+                              <td class="casename"><a href="/interface_test_case/result/{{ values.id }}/d">{{ values.casename }}</a></td>
+                              <td class="casesetName">{{ values.casesetName }}</td>
+                              <td class="ScriptType">{{ values.ScriptType }}</td>
+                              <td class="created_time">{{ values.created_time }}</td>
+                              <td class="Label">{{ values.Label }}</td>
+                                <td class="descript">{{ values.descript }}</td>
+
+                              <td> <a href="/edit/{{ values.id }}/d">编辑</a>|
+                                    <a href="/newcasestep/{{ values.id }}/d">添加测试步骤</a>|
+                                  <a href="/case/{{ values.id }}/d"><span class="label btn-success btn-large">执行</span></a>
+                              </td>
+                            </tr>
+                      </form>
+                 {% endfor %}
+
+				    </tbody>
+
+            </table>
+     </div>
+</div>
+{% endblock %}

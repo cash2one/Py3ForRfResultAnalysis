@@ -1,0 +1,47 @@
+{% extends 'WebUIindex.html' %}
+{% block content-header %}
+    <div id="breadcrumb">
+        <a href="#" title="Go to Home" class="tip-bottom">
+            <i class="icon-home"></i> Home
+        </a>
+        <a href="/WebUI/" class="tip-bottom">WebUI自动化平台</a>
+        <a href="#" class="current">项目详情</a>
+    </div>
+{% endblock %}
+{% block container-fluid %}
+    <div class="widget-box">
+         <div class="widget-content">
+
+				<table id="params_table" class="table table-bordered table-striped with-check">
+                    <tbody>
+                    <tr>
+                        <td style="width:100px">项目id号:</td>
+                        <td>{{ result.id }}</td>
+                    </tr>
+                    <tr>
+                        <td style="width:100px">项目名称:</td>
+                        <td>{{ result.itemName }}</td>
+                    </tr>
+                    <tr>
+                        <td style="width:100px">创建项目日期:</td>
+                        <td>{{ result.created_time }}</td>
+                    </tr>
+                    <tr>
+                        <td style="width:100px">创建者:</td>
+                        <td>{{ result.createname }}</td>
+                    </tr>
+                    <tr>
+                        <td style="width:100px">项目描述:</td>
+                        <td>{{ result.itemdescript }}</td>
+                    </tr>
+
+                    </tbody>
+                    </table>
+
+
+		</div> <!-- /login-content -->
+
+
+         </div>
+    </div>
+{% endblock %}

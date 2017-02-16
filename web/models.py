@@ -189,6 +189,60 @@ class create_data(models.Model):
     username = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
 
+class Use_case_management(models.Model):
+    usercasename = models.CharField(max_length=255)
+    casedescribe = models.TextField()
+
+class createinterfacetest(models.Model):
+    usercaseID = models.CharField(max_length=255)
+    caseID = models.IntegerField(default=11)
+    name = models.CharField(max_length=255)
+    method = models.CharField(max_length=255)
+    URL = models.TextField()
+    contentType = models.TextField()
+    param = models.TextField()
+    eresults = models.TextField()
+    Actualoutput = models.TextField()
+    testresult = models.CharField(max_length=64)
+
+#自动化平台
+class new_item(models.Model):
+    itemName = models.CharField('项目名称',max_length=255)
+    created_time = models.DateTimeField('创建时间',auto_now_add=True)
+    last_modified_time = models.DateTimeField('修改时间', auto_now=True)
+    createname = models.CharField('创建者',default='anonymous',max_length=128,editable=False)
+    itemdescript = models.TextField()
+
+class add_item_case_set(models.Model):
+    newitemID = models.CharField('项目ID',max_length=30)
+    casesetName = models.CharField('用例集名称',max_length=255)
+    created_time = models.DateTimeField('创建时间', auto_now_add=True)
+    createname = models.CharField('创建者', default='anonymous', max_length=128, editable=False)
+    casesetdescript = models.TextField('描述')
+
+class uicase(models.Model):
+    itemID = models.CharField('用例集ID',max_length=30)
+    Versionnumber = models.CharField('版本编号',max_length=255)
+    casename = models.CharField('脚本名称',max_length=255)
+    casesetName = models.CharField('所属产品',max_length=255)
+    ScriptType = models.CharField('脚本类型',max_length=128)
+    created_time = models.DateTimeField('创建时间', auto_now_add=True)
+    Label = models.CharField('标签',max_length=60)
+    descript = models.TextField('描述')
+
+#测试步骤
+class casestep(models.Model):
+    caseID = models.CharField('步骤ID号',max_length=30)
+    itemID = models.CharField('用例', max_length=30)
+    kword = models.CharField('关键字',max_length=255)
+    Roadking = models.CharField('路劲',max_length=255)
+    Param = models.TextField('输入参数值')
+    Descript = models.TextField('步骤描述')
+
+
+
+
+
 
 class Result(models.Model):
         """Question result info."""

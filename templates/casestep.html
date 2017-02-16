@@ -1,0 +1,61 @@
+{% extends 'WebUIindex.html' %}
+{% block content-header %}
+    <div id="breadcrumb">
+        <a href="#" title="Go to Home" class="tip-bottom">
+            <i class="icon-home"></i> Home
+        </a>
+        <a href="/WebUI/" class="tip-bottom">WebUI自动化平台</a>
+        <a href="#" class="current">测试步骤</a>
+    </div>
+{% endblock %}
+{% block container-fluid %}
+<div class="widget-box">
+         <div class="widget-content">
+            <form action="/add_case_step/create/" method="get">
+				<table id="params_table" class="table table-bordered table-striped with-check">
+                    <tbody>
+                    <tr>
+                        <td style="width:100px">用例集ID:</td>
+                        <td><input type="text" class=""name="itemID" id="itemID" value="{{ id }}"> </td>
+                    </tr>
+                    <tr>
+                        <td style="width:100px">版本编号:</td>
+                        <td><input type="text" class=""name="Version_number" id="Version_number" /></td>
+                    </tr>
+
+                    <tr>
+                        <td style="width:100px">脚本名称:</td>
+                        <td><input type="text" class=""name="casename" id="casename" /></td>
+                    </tr>
+                    <tr>
+                        <td style="width:100px">所属项目:</td>
+                        <td><input type="text" class=""name="casesetName" id="casesetName" value="{{ ad.casesetName }}"/></td>
+                    </tr>
+                    <tr>
+                        <td style="width:100px">脚本类型:</td>
+                        <td><input type="text" class=""name="ScriptType" id="ScriptType" /></td>
+                    </tr>
+                     <tr>
+                        <td style="width:100px">标签:</td>
+                        <td><input type="text" class=""name="Label" id="Label" /></td>
+                    </tr>
+                     <tr>
+                        <td style="width:100px">描述:</td>
+                        <td><input type="text" class=""name="descript" id="descript" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button type="submit" class="btn btn-warning btn-large">
+						保存
+					    </button></td>
+                    </tr>
+                    </tbody>
+                    </table>
+			</form>
+
+		</div> <!-- /login-content -->
+
+
+         </div>
+    </div>
+{% endblock %}

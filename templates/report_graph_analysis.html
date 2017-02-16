@@ -1,0 +1,152 @@
+{% extends 'index1.html' %}
+{% block header %}
+    		<script type="text/javascript" src="/static/bootstrap/js/jquery-2.2.4.min.js"></script>
+		<style type="text/css">
+${demo.css}
+		</style>
+		<script type="text/javascript">
+$(function () {
+{#    $('#container').highcharts({#}
+{#    var chart = new Highcharts.Chart({#}
+var chart = new Highcharts.Chart({
+                colors: ["#7cb5ec", "#f7a35c"],
+                chart: {
+                    type: 'column',
+                    renderTo: 'container'
+                },
+
+        data: {
+            table: 'datatable'
+        },
+{#        chart: {#}
+{#            type: 'column'#}
+{#        },#}
+        title: {
+            text: '测试报告分析图'
+        },
+        yAxis: {
+            allowDecimals: false,
+            title: {
+                text: 'Units'
+            }
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.series.name + '</b><br/>' +
+                    this.point.y + ' ' + this.point.name.toLowerCase();
+            }
+        }
+    });
+});
+		</script>
+      {% endblock %}
+{% block sidebar %}
+  <ul>
+    <li><a href="/interfaceTest/"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+{#    <li> <a href="/charts/"><i class="icon icon-signal"></i> <span>Charts &amp; graphs</span></a> </li>#}
+{#    <li> <a href="#"><i class="icon icon-tag"></i> <span>报告列表</span></a> </li>#}
+    <li class="submenu"> <a href="#"><i class="icon icon-tag"></i> <span>测试报告</span> <span class="label label-important">2</span></a>
+      <ul>
+        <li ><a href="/report_list/">报告列表</a></li>
+        <li  class="active"><a href="/report_graph_analysis/">图表分析</a></li>
+      </ul>
+    </li>
+    <li class="submenu"> <a href="#"><i class="icon icon-tags"></i> <span>数据库工具</span> <span class="label label-important">2</span></a>
+      <ul>
+        <li><a href="/form_common/">数据库操作</a></li>
+        <li ><a href="/database_list/">数据库列表</a></li>
+      </ul>
+    </li>
+        <li class="submenu"> <a href="#"><i class="icon icon-tags"></i> <span>接口测试</span> <span class="label label-important">3</span></a>
+      <ul>
+        <li><a href="/create_interfacetest/">创建接口测试用例</a></li>
+        <li><a href="/interface_test_case/">接口测试用例集</a></li>
+        <li  ><a href="/usecasemanagement/">接口测试用例集</a></li>
+        <li><a href="/interface_test_report_management/">接口测试报告管理</a></li>
+      </ul>
+    </li>
+    <li class="submenu"> <a href="#"><i class="icon icon-tags"></i> <span>UI自动化测试</span> <span class="label label-important">2</span></a>
+      <ul>
+        <li><a href="/WebUI/">webUI平台</a></li>
+        <li><a href="/MobileTerminalUI/">移动端UI</a></li>
+{#        <li><a href="/usecasemanagement/">接口测试用例集</a></li>#}
+{#        <li><a href="/interface_test_report_management/">接口测试报告管理</a></li>#}
+      </ul>
+    </li>
+{#    <li> <a href="/widgets/"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>#}
+{#    <li><a href="/tables/"><i class="icon icon-th"></i> <span>Tables</span></a></li>#}
+{#    <li><a href="/grid/"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>#}
+{#    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Forms</span> <span class="label label-important">3</span></a>#}
+{#      <ul>#}
+{#        <li><a href="/form_common/">Basic Form</a></li>#}
+{#        <li><a href="/form_validation/">Form with Validation</a></li>#}
+{#        <li><a href="/form_wizard/">Form with Wizard</a></li>#}
+{#      </ul>#}
+{#    </li>#}
+{#    <li><a href="/buttons/"><i class="icon icon-tint"></i> <span>Buttons &amp; icons</span></a></li>#}
+{#    <li><a href="/Eelements/"><i class="icon icon-pencil"></i> <span>Eelements</span></a></li>#}
+{#    <li class="submenu"> <a href="#"><i class="icon icon-file"></i> <span>Addons</span> <span class="label label-important">5</span></a>#}
+{#      <ul>#}
+{#        <li><a href="/index2/">Dashboard2</a></li>#}
+{#        <li><a href="/gallery/">Gallery</a></li>#}
+{#        <li><a href="/calendar/">Calendar</a></li>#}
+{#        <li><a href="/invoice/">Invoice</a></li>#}
+{#        <li><a href="/chat/">Chat option</a></li>#}
+{#      </ul>#}
+{#    </li>#}
+    <li class="submenu"> <a href="#"><i class="icon icon-info-sign"></i> <span>Error</span> <span class="label label-important">4</span></a>
+      <ul>
+         <li><a href="/error403/">Error 403</a></li>
+        <li><a href="/error404/">Error 404</a></li>
+        <li><a href="/error405/">Error 405</a></li>
+        <li><a href="/error500/">Error 500</a></li>
+      </ul>
+    </li>
+    <li class="content"> <span>Monthly Bandwidth Transfer</span>
+      <div class="progress progress-mini progress-danger active progress-striped">
+        <div style="width: 77%;" class="bar"></div>
+      </div>
+      <span class="percent">77%</span>
+      <div class="stat">21419.94 / 14000 MB</div>
+    </li>
+    <li class="content"> <span>Disk Space Usage</span>
+      <div class="progress progress-mini active progress-striped">
+        <div style="width: 87%;" class="bar"></div>
+      </div>
+      <span class="percent">87%</span>
+      <div class="stat">604.44 / 4000 MB</div>
+    </li>
+  </ul>
+    {% endblock %}
+{% block content-header %}
+    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">图表分析</a> </div>
+{% endblock %}
+{% block container-fluid %}
+{#     <div class="widget-box">#}
+         <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<table id="datatable">
+    <thead>
+        <tr>
+{#            <th></th>#}
+{#            <th>标题</th>#}
+            <th></th>
+            <th>PEP自动化测试结果</th>
+        </tr>
+    </thead>
+    <tbody>
+     {% for event in result_data %}
+        <tr>
+            <th>{{ event.started_at }}</th>
+            <td>{{ event.hash }}</td>
+        </tr>
+     {% endfor %}
+
+    </tbody>
+</table>
+<script type="text/javascript" src="/static/bootstrap/js/jquery-2.2.4.min.js"></script>
+<script src="/static/js/highcharts.js"></script>
+<script src="/static/js/data.js"></script>
+<script src="/static/js/exporting.js"></script>
+{#        </div>#}
+
+{% endblock %}

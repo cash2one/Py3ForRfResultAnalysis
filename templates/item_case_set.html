@@ -1,0 +1,45 @@
+{% extends 'WebUIindex.html' %}
+{% block content-header %}
+    <div id="breadcrumb">
+        <a href="#" title="Go to Home" class="tip-bottom">
+            <i class="icon-home"></i> Home
+        </a>
+        <a href="/WebUI/" class="tip-bottom">WebUI自动化平台</a>
+        <a href="#" class="current">{{ result.itemName }}</a>
+    </div>
+{% endblock %}
+{% block container-fluid %}
+<div class="widget-box">
+         <div class="widget-content">
+            <form action="/add_item_case_set/itemcaseset/{{ result.id }}/d">
+				<table id="params_table" class="table table-bordered table-striped with-check">
+                    <tbody>
+                    <tr>
+                        <td style="width:100px">项目ID:</td>
+                        <td>{{ result.id }}</td>
+                    </tr>
+                    <tr>
+                        <td style="width:100px">用例集名称:</td>
+                        <td><input type="text" class=""name="casesetName" id="casesetName" /></td>
+                    </tr>
+
+                    <tr>
+                        <td style="width:100px">用例集描述:</td>
+                        <td><input type="text" class=""name="casesetdescript" id="casesetdescript" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button type="submit" class="btn btn-warning btn-large">
+						保存
+					    </button></td>
+                    </tr>
+                    </tbody>
+                    </table>
+			</form>
+
+		</div> <!-- /login-content -->
+
+
+         </div>
+    </div>
+{% endblock %}

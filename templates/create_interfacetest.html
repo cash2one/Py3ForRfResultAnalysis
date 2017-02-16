@@ -1,0 +1,480 @@
+{% extends 'index1.html' %}
+
+{% block sidebar %}
+    <ul xmlns="http://www.w3.org/1999/html">
+    <li><a href="/interfaceTest/"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+    <li> <a href="/charts/"><i class="icon icon-signal"></i> <span>Charts &amp; graphs</span></a> </li>
+{#    <li> <a href="#"><i class="icon icon-tag"></i> <span>报告列表</span></a> </li>#}
+    <li class="submenu"> <a href="#"><i class="icon icon-tag"></i> <span>测试报告</span> <span class="label label-important">2</span></a>
+      <ul>
+        <li  ><a href="/report_list/">报告列表</a></li>
+        <li><a href="/report_graph_analysis/">图表分析</a></li>
+      </ul>
+    </li>
+    <li class="submenu"> <a href="#"><i class="icon icon-tags"></i> <span>数据库工具</span> <span class="label label-important">2</span></a>
+      <ul>
+        <li><a href="/form_common/">数据库操作</a></li>
+        <li><a href="/database_list/">数据库列表</a></li>
+      </ul>
+    </li>
+    <li class="submenu"> <a href="#"><i class="icon icon-tags"></i> <span>接口测试</span> <span class="label label-important">3</span></a>
+      <ul>
+        <li class="active"><a href="/create_interfacetest/">创建接口测试用例</a></li>
+        <li><a href="/interface_test_case/">接口测试用例集</a></li>
+        <li><a href="/usecasemanagement/">接口测试用例集</a></li>
+        <li><a href="/interface_test_report_management/">接口测试报告管理</a></li>
+      </ul>
+    </li>
+    <li class="submenu"> <a href="#"><i class="icon icon-tags"></i> <span>UI自动化测试</span> <span class="label label-important">2</span></a>
+      <ul>
+        <li><a href="/WebUI/">webUI平台</a></li>
+        <li><a href="/MobileTerminalUI/">移动端UI</a></li>
+{#        <li><a href="/usecasemanagement/">接口测试用例集</a></li>#}
+{#        <li><a href="/interface_test_report_management/">接口测试报告管理</a></li>#}
+      </ul>
+    </li>
+    <li> <a href="/widgets/"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>
+    <li><a href="/tables/"><i class="icon icon-th"></i> <span>Tables</span></a></li>
+    <li><a href="/grid/"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>
+    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Forms</span> <span class="label label-important">3</span></a>
+      <ul>
+        <li><a href="/form_common/">Basic Form</a></li>
+        <li><a href="/form_validation/">Form with Validation</a></li>
+        <li><a href="/form_wizard/">Form with Wizard</a></li>
+      </ul>
+    </li>
+    <li><a href="/buttons/"><i class="icon icon-tint"></i> <span>Buttons &amp; icons</span></a></li>
+    <li><a href="/Eelements/"><i class="icon icon-pencil"></i> <span>Eelements</span></a></li>
+    <li class="submenu"> <a href="#"><i class="icon icon-file"></i> <span>Addons</span> <span class="label label-important">5</span></a>
+      <ul>
+        <li><a href="/index2/">Dashboard2</a></li>
+        <li><a href="/gallery/">Gallery</a></li>
+        <li><a href="/calendar/">Calendar</a></li>
+        <li><a href="/invoice/">Invoice</a></li>
+        <li><a href="/chat/">Chat option</a></li>
+      </ul>
+    </li>
+    <li class="submenu"> <a href="#"><i class="icon icon-info-sign"></i> <span>Error</span> <span class="label label-important">4</span></a>
+      <ul>
+         <li><a href="/error403/">Error 403</a></li>
+        <li><a href="/error404/">Error 404</a></li>
+        <li><a href="/error405/">Error 405</a></li>
+        <li><a href="/error500/">Error 500</a></li>
+      </ul>
+    </li>
+    <li class="content"> <span>Monthly Bandwidth Transfer</span>
+      <div class="progress progress-mini progress-danger active progress-striped">
+        <div style="width: 77%;" class="bar"></div>
+      </div>
+      <span class="percent">77%</span>
+      <div class="stat">21419.94 / 14000 MB</div>
+    </li>
+    <li class="content"> <span>Disk Space Usage</span>
+      <div class="progress progress-mini active progress-striped">
+        <div style="width: 87%;" class="bar"></div>
+      </div>
+      <span class="percent">87%</span>
+      <div class="stat">604.44 / 4000 MB</div>
+    </li>
+  </ul>
+    {% endblock %}
+{% block content-header %}
+    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">新建接口用例</a> </div>
+{% endblock %}
+{% block container-fluid %}
+     <div class="widget-box">
+          <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>新建接口用例</h5>
+            <span class="label label-info">Featured</span>
+          </div>
+          <div class="widget-content ">
+              <table  id="title_table" class="table table-bordered table-striped with-check">
+                     <thead>
+                         <tr>
+                             <th style="width:3px;">#</th>
+                             <th style="width:30px;">用例ID号</th>
+                             <th style="width:80px;">接口名称</th>
+                             <th style="width:60px;">接口协议</th>
+                             <th style="width:200px;">URL</th>
+                             <th style="width:50px;">请求格式</th>
+                             <th style="width:200px;">操作</th>
+                          </tr>
+                      </thead>
+
+                    <form class="form-inline" role="form" id="showDataForm" >
+
+                  <tr>
+                      <td><input type="checkbox" /></td>
+                      <td><input style="width:30px;" class="params_caseID input-text" type="text" id="caseID"name="caseID" title="用例ID号" alt="用例ID号" value="" maxlength="100"/></td>
+                      <td><input style="width:80px;" class="params_name input-text" type="text" id="name" name="name" title="用例名称" alt="用例名称" value="" maxlength="500"/></td>
+                      <td style="width:60px;"><select id="api_method" class="form-control">
+							<option value="GET">GET</option>
+							<option value="POST" selected="">POST</option>
+							<option value="PUT">PUT</option>
+							<option value="PATCH">PATCH</option>
+							<option value="DELETE">DELETE</option>
+							<option value="COPY">COPY</option>
+							<option value="HEAD">HEAD</option>
+							<option value="OPTIONS">OPTIONS</option>
+							<option value="LINK">LINK</option>
+							<option value="UNLINK">UNLINK</option>
+							<option value="PURGE">PURGE</option>
+						</select></td>
+                       <td ><input style="width:200px;" class="form-control" id="http_url_input" type="text" name="URL" title="URL" alt="URL" value="" maxlength="500"/></td>
+                        <td style="width:50px;"><select id="api_contentType" class="form-control">
+							<option value="application/json; charset=utf-8">application/json</option>
+                            <option value="html; charset=utf-8">html</option>
+                            <option value="text; charset=utf-8">text</option>
+						</select></td>
+                      <td> <button class='btn btn-primary' type="button" onClick="Apitest()" >请求</button>
+
+                    <button class='btn btn-success' onclick="saveapi()" >新增</button></td>
+
+                  </tr>
+                  <table id="params_table" class="table table-bordered table-striped with-check">
+					<thead>
+				        <tr>
+                            <td width="6%">#</td>
+				            <th width="35%">参数名称</th>
+				            <th>参数值</th>
+				        </tr>
+                        <tr>
+
+                        </tr>
+				    </thead>
+				    <tbody>
+				    	<tr id="params_end">
+				    		<td colspan="3">
+				    			<button class='btn btn-primary' id="add_url_parameter" onClick="addLine()"type="button">添加参数</button>
+{#                                <button class='btn btn-warning' id="add_raw_url_parameter" onClick="addLine1()" type="button" >批量添加</button>#}
+                                <button class="btn btn-danger" id="del_url_parameter" onClick="delLine()" type="button">删除参数</button>
+				    		</td>
+				    	</tr>
+
+				    </tbody>
+
+                </table>
+                   <table id="result_table" class="table table-bordered table-striped with-check">
+                      <tr> 状态码: <span id="statuscode">
+
+                    </span> 响应时间：<span id="elapsedtime">&nbsp&nbsp&nbsp</span>
+                          </tr>
+                       <tr>
+
+
+                        <ul class="nav nav-tabs rowitem">
+                            <li role="presentation" class="active"><a href="#resp-body" onclick="refreshbody()" aria-controls="resp-body" role="tab" data-toggle="tab">Body</a></li>
+                            <li role="presentation"><a href="#resp-headers" aria-controls="resp-headers" role="tab" data-toggle="tab">Headers</a></li>
+                            <li role="presentation"><a href="#resp-cookies" aria-controls="resp-cookies" role="tab" data-toggle="tab">Cookies</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="resp-body">
+                                <textarea id="responsearea" class="form-control" rows="12" cols="120" placeholder="no body"></textarea>
+                                <script>
+                                    var respmirror = CodeMirror.fromTextArea(document.getElementById('responsearea'),{
+                                        indentUnit: 4,
+                                        lineNumbers: true,
+                                        lineWrapping:true,
+                                        mode: "python",
+                                        theme: "abcdef"
+                                    })
+                                    respmirror.setSize("100%","400px")
+                                </script>
+
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="resp-headers" style="height:170px" >
+                                 <textarea id="resp-headers-panel" class="form-control" rows="12" cols="120" placeholder="no headers"></textarea>
+                                <script>
+                                    var respmirror = CodeMirror.fromTextArea(document.getElementById('resp-headers-panel'),{
+                                        indentUnit: 4,
+                                        lineNumbers: true,
+                                        lineWrapping:true,
+                                        mode: "python",
+                                        theme: "abcdef"
+                                    })
+                                    respmirror.setSize("100%","400px")
+                                </script>
+    {#                            <div class="panel-body" id="resp-headers-panel">#}
+    {#                                no headers#}
+    {#                            </div>#}
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="resp-cookies" style="height:170px" >
+                                 <textarea id="resp-cookies-panel"class="form-control" rows="12" cols="120" placeholder="no headers"></textarea>
+                                <script>
+                                    var respmirror = CodeMirror.fromTextArea(document.getElementById('resp-cookies-panel'),{
+                                        indentUnit: 4,
+                                        lineNumbers: true,
+                                        lineWrapping:true,
+                                        mode: "python",
+                                        theme: "abcdef"
+                                    })
+                                    respmirror.setSize("100%","400px")
+                                </script>
+    {#                            <div class="panel-body" id="resp-cookies-panel">#}
+    {#                                no cookies#}
+    {#                            </div>#}
+                            </div>
+                        </div>
+
+                    </div>
+              </table>
+
+                    <div class="col-lg-3"></div>
+                    </div>
+                    </form>
+
+           </div>
+     </div>
+<script language="JavaScript">
+    var param_cnt = 0;
+    function addLine(){
+        param_cnt++;
+					add_parameter(param_cnt, "", "")
+    }
+
+
+     function delLine(){
+            var i;
+            var count;
+            count = params_table.rows.length;
+            alert(count)
+            if(count>=4){
+            params_table.deleteRow(params_table.rows.length-3)
+                for(i=0;i<count-1;i++){
+                    if(document.chk[i].checked){
+                        alert("aa");
+                    }
+                }
+            }
+        }
+
+     function params_togg() {
+					if ($("input[name=body_params]:checked") && $("input[name=body_params]:checked").length > 0) {
+						$("#params_table").show();
+                        alert('on')
+						$.cookie("body_on", "on")
+					} else {
+						$("#params_table").hide();
+                        alert('cuo')
+						$.cookie("body_on", "")
+					}
+				}
+
+    function add_parameter(cnt, name, value) {
+					if (name == "undefined" || name == null) {
+						name = ""
+					}
+					if (value == "undefined" || value == null) {
+						value = ""
+					}
+					$("#params_end").before('	<tr class="params_p" cnt="' + cnt + '">	<td><input type=checkbox name = chk " + newLine + " ></td>	<td><input class="params_name input-text" type="text" name="p_name_' + cnt + '" title="参数名称" alt="参数名称" value="' + name + '" maxlength="100"/>	</td><td><input class="params_value input-text" type="text" name="p_value_' + cnt + '" title="参数数值" alt="参数数值" value="' + value + '" maxlength="5000"/>															</td>						</tr>					')
+				}
+
+    function get_all_parameter() {
+                    alert('jije')
+					var params = new Array();
+					$(".params_p").each(function() {
+						var cnt = $(this).attr("cnt");
+                        alert(cnt)
+						var name = $(this).find("input[name=p_name_" + cnt + "]").val();
+						var value = $(this).find("input[name=p_value_" + cnt + "]").val();
+{#						if (is_empty(name) || is_empty(value)) {#}
+{#							return false#}
+{#						}#}
+						params.push({
+							name: name,
+							value: value
+						})
+					});
+
+					return params
+
+				}
+
+  function params_2_str(params) {
+					var str = "";
+					for (var i = 0; i < params.length; i++) {
+						var p = params[i];
+						if (p.name) {
+							str = str + "&" + p.name + "=" + p.value
+						}
+					}
+					if (str.length > 1) {
+						str = str.substring(1)
+					}
+                    alert(str)
+					return str
+				}
+
+
+    function Apitest(){
+           var method = $("#api_method").val()
+           var url = $("#http_url_input").val()
+         var page_content = $("#api_contentType").val()
+          if (!url) {
+						alert("接口链接为空，请填写后再请求！");
+						return
+					}
+          var str_data=$("#showDataForm input").map(function(){
+                return ($(this).attr("name")+'='+$(this).val());
+            }).get().join("&") ;
+         var params = get_all_parameter();
+         $.cookie("params", params_2_str(params));
+         $.cookie("http_url", url);
+         $.cookie("method", method);
+         alert($.cookie("http_url"));
+         alert($.cookie("params"));
+         var para = $.cookie("params");
+
+
+
+{#          var str_data=$("#showDataForm input").map(function(){#}
+{#                return ($(this).attr("name")+'='+$(this).val());#}
+{#            }).get().join("&") ;#}
+
+         alert('2342');
+         alert(url);
+         alert(method);
+         alert(para);
+         alert(page_content);
+{#         $.get("http://192.168.3.84:8091/TestTools/interf_test/",#}
+{#                 {"method":method,#}
+{#                        "url":url,#}
+{#                        "data":para},#}
+{#                 function(data){#}
+{#                    alert("Data Loaded: " + data);#}
+{#                }#}
+
+
+            $.ajax({
+                url: url+'?'+para,  //'提交的URL',
+{#                url:url,#}
+                type:method,        ////提交的方式
+                cache: false,
+                async: false,
+
+{#                contentType: "application/json; charset=utf-8",#}
+                contentType:page_content,
+                dataType: 'json',
+                data:{"method":method,
+                    "parameter":para},
+                beforeSend: LoadFunction, //加载执行方法
+                error: erryFunction,  //错误执行方法
+                success: succFunction //成功执行方法
+
+            });
+            function LoadFunction(){
+                    $("#responsearea").html('加载中...');
+                }
+            function erryFunction() {
+             alert("error");
+            }
+
+            function succFunction(data,status,xhr) {
+                alert(data.status);
+
+
+                $("#statuscode").html(data.status);
+                $("#elapsedtime").html(xhr.getResponseHeader('Date'));
+                $("#responsearea").html('{"message":'+data.message+',"status":'+data.status+'}');
+                $("#resp-cookies-panel").html(decodeURI(document.cookie));
+{#                $("#resp-headers-panel").html(xhr.getResponseHeader('Content-Type'));#}
+                $("#resp-headers-panel").html(xhr.getAllResponseHeaders(''));
+
+{#                alert(xhr.getResponseHeader('Content-Type'))#}
+
+
+
+{#                var json = eval(data);#}
+{#                alert(json.responseText)#}
+{#                $("#responsearea").html(data.response);#}
+
+{#                $.each(json, function (index, item) {#}
+{##}
+{#                    alert(index,item)#}
+{#                    //循环获取数据#}
+{#                    alert(json[index],json[item]);#}
+{#                    alert(item.message,item.status)#}
+{##}
+{#                    var Key = json[index].key;#}
+{#                    var Info = json[index].info;#}
+{#                     $("#responsearea").html('{"message":'+item.message+',"status":'+item.status+'}');#}
+{##}
+{#                    $("#responsearea").html(json.response);#}
+{##}
+{##}
+{#                });#}
+{#                $("#responsearea").html.append(item);#}
+
+
+
+            }
+
+
+        }
+
+    function saveapi() {
+
+         var method = $("#api_method").val();
+
+         var url = $("#http_url_input").val();
+         var page_content = $("#api_contentType").val();
+         var caseID = $("#caseID").val();
+         var name = $("#name").val();
+         var str_data=$("#showDataForm input").map(function(){
+                return ($(this).attr("name")+'='+$(this).val());
+            }).get().join("&") ;
+         var params = get_all_parameter();
+        alert(method);
+        alert(url);
+        alert(page_content);
+        alert(caseID);
+        alert(name);
+        alert(params);
+        $.cookie("params", params_2_str(params));
+        alert($.cookie("params"));
+        var para = $.cookie("params");
+
+        $.ajax({
+                url: "/new_interfacetest/",  //'提交的URL',
+{#                url:url,#}
+                type:"get",        ////提交的方式
+                cache: false,
+                async: false,
+
+{#                contentType: "application/json; charset=utf-8",#}
+                contentType:page_content,
+                dataType: 'json',
+                data:{"method":method,
+                    "url":url,
+                    "page_content":page_content,
+                    "caseID":caseID,
+                    "name":name,
+                    "parameter":para},
+                success: function(data) {
+                    alert("Connection pass");
+                }
+
+            })
+
+
+    }
+
+
+</script>
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/static/bootstrap/js/jquery.min.js"></script>
+    <script src="/static/js/json2.js"></script>
+    <script src="/static/js/jquery.zclip.min.js"></script>
+    <script src="/static/js/JSONFormatter.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+    <script src="/static/js/jquery.cookie.min.js"></script>
+    <script src="/static/js/jquery.dialogbox.js"></script>
+    <script src="/static/js/jquery.form.js"></script>
+    <script src="/static/js/adsbygoogle.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/bootstrap/js/docs.min.js"></script>
+
+
+{% endblock %}

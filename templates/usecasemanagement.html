@@ -1,0 +1,175 @@
+{% extends 'index1.html' %}
+{% load paginate_tags %}
+{% block sidebar %}
+  <ul>
+    <li><a href="/interfaceTest/"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+{#    <li> <a href="/charts/"><i class="icon icon-signal"></i> <span>Charts &amp; graphs</span></a> </li>#}
+{#    <li> <a href="#"><i class="icon icon-tag"></i> <span>报告列表</span></a> </li>#}
+    <li class="submenu"> <a href="#"><i class="icon icon-tag"></i> <span>测试报告</span> <span class="label label-important">2</span></a>
+      <ul>
+        <li  ><a href="/report_list/">报告列表</a></li>
+        <li><a href="/report_graph_analysis/">图表分析</a></li>
+      </ul>
+    </li>
+    <li class="submenu"> <a href="#"><i class="icon icon-tags"></i> <span>数据库工具</span> <span class="label label-important">2</span></a>
+      <ul>
+        <li><a href="/form_common/">数据库操作</a></li>
+        <li><a href="/database_list/">数据库列表</a></li>
+      </ul>
+    </li>
+    <li class="submenu"> <a href="#"><i class="icon icon-tags"></i> <span>接口测试</span> <span class="label label-important">3</span></a>
+      <ul>
+        <li><a href="/create_interfacetest/">创建接口测试用例</a></li>
+        <li  ><a href="/interface_test_case/">接口测试用例管理</a></li>
+        <li class="active" ><a href="/usecasemanagement/">接口测试用例集</a></li>
+        <li><a href="/interface_test_report_management/">接口测试报告管理</a></li>
+      </ul>
+    </li>
+    <li class="submenu"> <a href="#"><i class="icon icon-tags"></i> <span>UI自动化测试</span> <span class="label label-important">2</span></a>
+      <ul>
+        <li><a href="/WebUI/">webUI平台</a></li>
+        <li><a href="/MobileTerminalUI/">移动端UI</a></li>
+{#        <li><a href="/usecasemanagement/">接口测试用例集</a></li>#}
+{#        <li><a href="/interface_test_report_management/">接口测试报告管理</a></li>#}
+      </ul>
+    </li>
+{#    <li> <a href="/widgets/"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>#}
+{#    <li><a href="/tables/"><i class="icon icon-th"></i> <span>Tables</span></a></li>#}
+{#    <li><a href="/grid/"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>#}
+{#    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Forms</span> <span class="label label-important">3</span></a>#}
+{#      <ul>#}
+{#        <li><a href="/form_common/">Basic Form</a></li>#}
+{#        <li><a href="/form_validation/">Form with Validation</a></li>#}
+{#        <li><a href="/form_wizard/">Form with Wizard</a></li>#}
+{#      </ul>#}
+{#    </li>#}
+{#    <li><a href="/buttons/"><i class="icon icon-tint"></i> <span>Buttons &amp; icons</span></a></li>#}
+{#    <li><a href="/Eelements/"><i class="icon icon-pencil"></i> <span>Eelements</span></a></li>#}
+{#    <li class="submenu"> <a href="#"><i class="icon icon-file"></i> <span>Addons</span> <span class="label label-important">5</span></a>#}
+{#      <ul>#}
+{#        <li><a href="/index2/">Dashboard2</a></li>#}
+{#        <li><a href="/gallery/">Gallery</a></li>#}
+{#        <li><a href="/calendar/">Calendar</a></li>#}
+{#        <li><a href="/invoice/">Invoice</a></li>#}
+{#        <li><a href="/chat/">Chat option</a></li>#}
+{#      </ul>#}
+{#    </li>#}
+    <li class="submenu"> <a href="#"><i class="icon icon-info-sign"></i> <span>Error</span> <span class="label label-important">4</span></a>
+      <ul>
+         <li><a href="/error403/">Error 403</a></li>
+        <li><a href="/error404/">Error 404</a></li>
+        <li><a href="/error405/">Error 405</a></li>
+        <li><a href="/error500/">Error 500</a></li>
+      </ul>
+    </li>
+    <li class="content"> <span>Monthly Bandwidth Transfer</span>
+      <div class="progress progress-mini progress-danger active progress-striped">
+        <div style="width: 77%;" class="bar"></div>
+      </div>
+      <span class="percent">77%</span>
+      <div class="stat">21419.94 / 14000 MB</div>
+    </li>
+    <li class="content"> <span>Disk Space Usage</span>
+      <div class="progress progress-mini active progress-striped">
+        <div style="width: 87%;" class="bar"></div>
+      </div>
+      <span class="percent">87%</span>
+      <div class="stat">604.44 / 4000 MB</div>
+    </li>
+  </ul>
+    {% endblock %}
+{% block content-header %}
+    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">接口用例集</a> </div>
+{% endblock %}
+{% block container-fluid %}
+     <div class="widget-box">
+          <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>接口用例集</h5>
+            <span class="label label-info">Featured</span> </div>
+          <div class="widget-content ">
+
+
+
+            <table  id="params_table" class="table table-bordered table-striped with-check">
+              <thead>
+                <tr>
+
+                     <th>用例ID号</th>
+                     <th>用例集名称</th>
+                    <th>描述</th>
+                    <th>操作</th>
+
+                </tr>
+              </thead>
+                 <tbody>
+
+                 {% for values in  result %}
+                     <form method="get" name="form1" action="/interface_test_case/batch/{{ values.id }}/d"  >
+                            <tr>
+
+                              <td class="caseID">{{ values.id }}</td>
+                              <td class="name"><a href="/interface_test_case/result/{{ values.id }}/d">{{ values.usercasename }}</a></td>
+                              <td class="method">{{ values.casedescribe }}</td>
+
+                              <td><button type="submit" class="bnt label-success" >批量执行</button>
+
+                                  <a href="/interface_test_case/result/{{ values.id }}/d"><span class="label label-Info">查看</span></a>
+                              </td>
+                            </tr>
+                      </form>
+                 {% endfor %}
+
+				    </tbody>
+
+            </table>
+
+{#                 <h2>创建模态框（Modal）</h2>#}
+{#                <!-- 按钮触发模态框 -->#}
+                <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                    新增测试用例集
+                </button>
+                <!-- 模态框（Modal） -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form method="get" name="form1" action="/newcaseaggregate/">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        &times;
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">
+                                        用例集
+                                    </h4>
+                                </div>
+                                <div class="modal-body">
+                                    <table id="params_table" class="table table-bordered table-striped with-check">
+
+                                    <tr>
+                                        <td style="width:50px;">用例集名称：</td>
+                                        <td><input style="width:250px;" class="name input-text" type="text" id="name"name="name" title="用例ID号" alt="用例ID号" value="" maxlength="100"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>用例集描述：</td>
+                                        <td><textarea style="width:400px" id="descript" name="descript" ></textarea></td>
+                                    </tr>
+                                    </table>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">
+                                        提交更改
+                                    </button>
+                                </div>
+                            </form>
+                        </div><!-- /.modal-content -->
+
+                    </div><!-- /.modal -->
+                </div>
+
+          </div>
+
+        </div>
+
+{% endblock %}
